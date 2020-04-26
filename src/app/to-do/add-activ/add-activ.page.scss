@@ -1,0 +1,14 @@
+ion-button.addButton{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.clear{
+    z-index: 2;
+    width: 30px;
+    ion-button{
+        --padding-start:2px;
+        --padding-end: 2px;
+        --padding-top: 1.5px;
+    }
+}

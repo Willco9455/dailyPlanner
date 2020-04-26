@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color = 'primary'>
+    <ion-title>To-Do</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['./add-activ']">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item (ionChange)="clicked()" class="checkbox-item" *ngFor='let item of items'>
+      <ion-label>{{ item.name }}</ion-label>
+      <ion-checkbox class="checkbox" slot="start" item-right [(ngModel)]='item.completed'></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>
