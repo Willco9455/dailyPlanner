@@ -2,7 +2,7 @@
   <ion-toolbar color='primary'>
     <ion-title>Add a New Activity</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="to-do"></ion-back-button>
+      <ion-back-button [defaultHref]="viewSelec">Back</ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,11 +11,11 @@
 
   <ion-item>
     <ion-label position="floating">Activity</ion-label>
-    <ion-input [(ngModel)]="textInp" (ionChange)="validActivInp()" type="text" clearInput="true" ></ion-input>
-  </ion-item>  
+    <ion-input [(ngModel)]="textInp" (ionChange)="validActivInp()"></ion-input>
+  </ion-item>
 
   <ion-item>
-    <ion-label>Competion Date</ion-label>
+    <ion-label >Competion Date</ion-label>
     <ion-datetime [(ngModel)]="endDate" (ionChange)='button1Check()' displayFormat="D MMM YYYY" [min]='date' max="2100" placeholder="None" ></ion-datetime>
     <div class="clear">
       <ion-button *ngIf='clearButton1 === true' (click)='clearEndDate()' fill="clear">
@@ -34,6 +34,8 @@
     </div>
   </ion-item>
 
-  <ion-button></ion-button>
+  <ion-button (click)="clicked()" (onChange)='validActivInp()' [disabled]='buttonDisabled' class="addButton">
+    Add
+  </ion-button>
 
 </ion-content>

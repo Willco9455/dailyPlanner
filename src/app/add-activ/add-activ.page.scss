@@ -12,3 +12,16 @@ ion-button.addButton{
         --padding-top: 1.5px;
     }
 }
+
+.test{
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    input{
+        text-align: center;
+    }
+}
+
+.ded{
+    --inner-padding-bottom:0px;
+}  
+

@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
 })
 export class AddActivPage implements OnInit {
 
+  viewSelec = this.toDoService.viewSelec;
   textInp: string;
   endDate: string;
+  endDateArry: string [];
   endTime: string;
   date: string;
   buttonDisabled = true;
@@ -29,19 +31,7 @@ export class AddActivPage implements OnInit {
   // runs when the page is bieng trasnitioned into;
   ionViewWillEnter() {
     this.refresh();
-    const currentDate = new Date();
-    let date: string = currentDate.getDate().toString();
-    let month: string = (currentDate.getMonth() + 1).toString();
-
-    // checks if the month needs a 0 in and if date needs a 0 in front of it and creates the date variable ;
-    if (month.length === 1) {
-      month = '0' + month;
-    }
-    if (date.length === 1) {
-      date = '0' + date;
-    }
-    const year = currentDate.getFullYear();
-    this.date = year + '-' + month + '-' + date;
+    this.date = this.toDoService.getDate();
   }
 
   // runs when the screen view is left;
@@ -57,11 +47,20 @@ export class AddActivPage implements OnInit {
     this.buttonDisabled = true;
   }
 
+  // runs when the add activity button is pressed;
   clicked() {
-    this.endDate = this.endDate.slice(0, this.endDate.search('T'));
-    this.endTime = this.endTime.slice(this.endTime.search('T') + 1, this.endTime.indexOf(':', this.endTime.indexOf(':') + 1) );
-    this.toDoService.addToDo(this.textInp, this.endDate, this.endTime);
-    this.router.navigate(['/to-do']);
+    // checks for completion date;
+    if (this.endDate !== undefined) {
+      this.endDate = this.endDate.slice(0, this.endDate.search('T'));
+      this.endDateArry = this.endDate.split('-');
+    }
+    // chescks for completion time;
+    if (this.endTime !== undefined) {
+      this.endTime = this.endTime.slice(this.endTime.search('T') + 1, this.endTime.indexOf(':', this.endTime.indexOf(':') + 1));
+    }
+    // adds the a new activity to the to-do list;
+    this.toDoService.addToDo(this.textInp, this.endDateArry, this.endTime);
+    this.router.navigate(['/to-do/tabs/day-view']);
   }
 
   // checks if there is a value in the activity input field and if not the add button cannot be pressed;
@@ -74,7 +73,6 @@ export class AddActivPage implements OnInit {
   }
 
   button1Check() {
-    console.log('plelelelel');
     if (this.endDate !== undefined) {
       this.clearButton1 = true;
     } else {
@@ -93,6 +91,7 @@ export class AddActivPage implements OnInit {
   clearEndDate() {
     this.endDate = undefined;
   }
+
   clearEndTime() {
     this.endTime = undefined;
   }

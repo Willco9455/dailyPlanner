@@ -5,12 +5,27 @@ import { ToDoPage } from './to-do.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: ToDoPage
+    path: 'tabs',
+    component: ToDoPage,
+    children: [
+      {
+        path: 'day-view',
+        loadChildren: () => import('./day-view/day-view.module').then( m => m.DayViewPageModule),
+      },
+      {
+        path: 'week-view',
+        loadChildren: () => import('./week-view/week-view.module').then( m => m.WeekViewPageModule)
+      },
+      {
+        path: 'all-view',
+        loadChildren: () => import('./all-view/all-view.module').then( m => m.AllViewPageModule)
+      },
+    ]
   },
   {
-    path: 'add-activ',
-    loadChildren: () => import('./add-activ/add-activ.module').then( m => m.AddActivPageModule)
+    path: '',
+    redirectTo: '/to-do/tabs/day-view',
+    pathMatch: 'full'
   }
 ];
 

@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'to-do',
     loadChildren: () => import('./to-do/to-do.module').then( m => m.ToDoPageModule)
   },
+  {
+    path: 'add-activ',
+    loadChildren: () => import('./add-activ/add-activ.module').then( m => m.AddActivPageModule)
+  },
 ];
 
 @NgModule({

@@ -9,20 +9,15 @@ import { ToDoService } from '../to-do.service';
 })
 export class ToDoPage implements OnInit {
 
-  items: Item[];
-
   constructor(private toDoService: ToDoService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   ionViewWillEnter() {
-    this.items = this.toDoService.getToDo();
-    console.log(this.items);
+
   }
 
-  clicked() {
-    console.log(this.items);
-  }
 
 
 }
