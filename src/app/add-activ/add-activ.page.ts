@@ -1,6 +1,6 @@
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
-import { ToDoService } from 'src/app/to-do.service';
 import { Router } from '@angular/router';
+import { DayService } from '../day.service';
 
 @Component({
   selector: 'app-add-activ',
@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class AddActivPage implements OnInit {
 
-  viewSelec = this.toDoService.viewSelec;
   textInp: string;
   endDate: string;
   endDateArry: string [];
@@ -20,7 +19,7 @@ export class AddActivPage implements OnInit {
   clearButton2 = false;
 
   constructor(
-    private toDoService: ToDoService,
+    private dayService: DayService,
     private router: Router
     ) { }
 
@@ -31,7 +30,7 @@ export class AddActivPage implements OnInit {
   // runs when the page is bieng trasnitioned into;
   ionViewWillEnter() {
     this.refresh();
-    this.date = this.toDoService.getDate();
+    this.date = this.dayService.getDate();
   }
 
   // runs when the screen view is left;
@@ -59,8 +58,8 @@ export class AddActivPage implements OnInit {
       this.endTime = this.endTime.slice(this.endTime.search('T') + 1, this.endTime.indexOf(':', this.endTime.indexOf(':') + 1));
     }
     // adds the a new activity to the to-do list;
-    this.toDoService.addToDo(this.textInp, this.endDateArry, this.endTime);
-    this.router.navigate(['/to-do/tabs/day-view']);
+    this.dayService.addToDo(this.textInp, this.endDateArry, this.endTime);
+    this.router.navigate(['']);
   }
 
   // checks if there is a value in the activity input field and if not the add button cannot be pressed;

@@ -1,4 +1,4 @@
-<ion-toolbar color = 'primary'>
+<ion-toolbar color='primary'>
   <ion-title>To-Do</ion-title>
   <ion-buttons slot="end">
     <ion-button (click)='addActiv()'>
@@ -8,13 +8,55 @@
 </ion-toolbar>
 
 <ion-content>
-  <div>
-    <ion-list>
-      <ion-item lines='full' (onChange)='click()' *ngFor='let item of items'>
-        <ion-label>{{ item.name }}</ion-label>
-        <ion-checkbox class="checkbox" slot="start" item-right [(ngModel)]='item.completed'></ion-checkbox>
-        <p>{{ item.compTime }}</p>
-      </ion-item>
-    </ion-list>
-  </div>
+  <ion-list>
+    <ion-item *ngFor='let item of day'>
+      <ion-label>{{ item.name }}</ion-label>
+      {{ item.startTime}} - {{item.endTime}}
+    </ion-item>
+  </ion-list>
+
+  <ion-grid>
+
+    <!-- this row is displayed if adding varibale is false, displays add button but nothing else-->
+    <ion-row *ngIf="adding === false">
+      <ion-col size='auto'>
+        <ion-button (click)="adding = true" size="medium" id="addButton">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- this row displayed if adding variable is true, allows user to input data for new activity-->
+    <ion-row *ngIf="adding === true">
+
+      <ion-col size='auto'>
+        <ion-button (click)="adding = false" size="medium" id="addButton">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-input [(ngModel)]="name" (ionChange)="validCheck()" placeholder="Name..."></ion-input>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-datetime [(ngModel)]="startTime" (ionChange)="validCheck()" displayFormat="HH:mm" placeholder="Start"></ion-datetime>
+      </ion-col>
+
+      <ion-col size="auto">
+        <p>-</p>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-datetime [(ngModel)]="endTime" (ionChange)="validCheck()" displayFormat="HH:mm" placeholder="End"></ion-datetime>
+      </ion-col>
+
+      <ion-col size="auto">
+        <ion-button (click)="addActiv()" [disabled]="addDisabled" type="submit" size="small" id="tickButton">
+          <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      </ion-row>
+    </ion-grid>
 </ion-content>

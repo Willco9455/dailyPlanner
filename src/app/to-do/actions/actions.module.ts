@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { WeekViewPageRoutingModule } from './week-view-routing.module';
+import { ActionsPageRoutingModule } from './actions-routing.module';
 
-import { WeekViewPage } from './week-view.page';
+import { ActionsPage } from './actions.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WeekViewPageRoutingModule
+    ActionsPageRoutingModule
   ],
-  declarations: [WeekViewPage]
+  declarations: [ActionsPage]
 })
-export class WeekViewPageModule {}
+export class ActionsPageModule {}

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoService } from 'src/app/to-do.service';
-import { Item } from '../item.model';
 import { NavController } from '@ionic/angular';
+import { DayService } from 'src/app/day.service';
 
 @Component({
   selector: 'app-day-view',
@@ -10,20 +9,40 @@ import { NavController } from '@ionic/angular';
 })
 export class DayViewPage implements OnInit {
 
-  items: Item[];
-  date: any;
-  constructor(private toDoService: ToDoService, private navController: NavController) { }
+  day: any;
+  adding: boolean;
+  name = '';
+  startTime: string;
+  endTime: string;
+  addDisabled = true;
+
+  constructor(private dayService: DayService, private navController: NavController) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.items = this.findDayArry();
-    this.toDoService.viewSelec = 'to-do/tabs/day-view';
+    this.dayService.findPos('2020-06-02T11:49:47.314+01:00', '2020-06-02T12:50:47.314+01:00');
+    // fetches the list activities for today
+    this.day = this.dayService.getDay();
+
+
+    // sets adding variable to false by default
+    this.adding = false;
+  }
+
+  // checks if the data has been entered for all the fields
+  validCheck() {
+    console.log(this.startTime);
+    if (this.name !== '' && this.startTime !== undefined && this.endTime !== undefined) {
+      this.addDisabled = false;
+    } else {
+      this.addDisabled = true;
+    }
   }
 
   addActiv() {
-    this.navController.navigateRoot(['/add-activ']);
+
   }
 
   arrayEqualCheck(arr1: string[], arr2: string[]) {
@@ -39,10 +58,4 @@ export class DayViewPage implements OnInit {
     return true;
   }
 
-  findDayArry() {
-    this.items = this.toDoService.getToDo(); // fetches the todo array of objects
-    this.date = this.toDoService.getDate().split('-'); // fetches the current date and turns it into an array
-    const today = this.items.filter(x => this.arrayEqualCheck(x.compDate, this.date) ); // filter to find activity on current date
-    return today;
-  }
 }

@@ -1,0 +1,38 @@
+@font-face {
+    font-family: digital-clock;
+    src: url(/assets/fonts/digitalClockFont.ttf);
+}
+
+.time{
+    font-family: digital-clock;
+    font-size: 22px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    color: grey;
+}
+
+#addButton{
+    --border-radius: 500px;
+    --padding-end: 6.2px;
+    --padding-start: 6.1px;
+    margin-left: 15px;
+}
+
+#tickButton{
+    --border-radius: 500px;
+    --padding-end: 4px;
+    --padding-start: 4px;
+    margin-left: 0px;
+}
+
+ion-grid{
+    --ion-grid-padding: 0px;
+    ion-input{
+        margin-top: 8px;
+    }
+    ion-datetime{
+        margin-top: 8px;
+    }
+}
+
+

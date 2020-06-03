@@ -13,20 +13,16 @@ const routes: Routes = [
         loadChildren: () => import('./day-view/day-view.module').then( m => m.DayViewPageModule),
       },
       {
-        path: 'week-view',
-        loadChildren: () => import('./week-view/week-view.module').then( m => m.WeekViewPageModule)
-      },
-      {
-        path: 'all-view',
-        loadChildren: () => import('./all-view/all-view.module').then( m => m.AllViewPageModule)
-      },
+        path: 'actions',
+        loadChildren: () => import('./actions/actions.module').then( m => m.ActionsPageModule)
+      }
     ]
   },
   {
     path: '',
     redirectTo: '/to-do/tabs/day-view',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({
