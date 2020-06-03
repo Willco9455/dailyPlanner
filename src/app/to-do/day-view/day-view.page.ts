@@ -22,7 +22,7 @@ export class DayViewPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.dayService.findPos('2020-06-02T11:49:47.314+01:00', '2020-06-02T12:50:47.314+01:00');
+    console.log(this.dayService.findPos('2020-06-02T16:00:47.314+01:00', '2020-06-02T16:01:47.314+01:00'));
     // fetches the list activities for today
     this.day = this.dayService.getDay();
 

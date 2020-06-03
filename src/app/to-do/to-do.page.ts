@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from './item.model';
 import { DayService } from '../day.service';
 
 @Component({
