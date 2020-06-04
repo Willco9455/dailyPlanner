@@ -48,7 +48,7 @@
       </ion-col>
 
       <ion-col size="2">
-        <ion-datetime [(ngModel)]="endTime" (ionChange)="validCheck()" displayFormat="HH:mm" placeholder="End"></ion-datetime>
+        <ion-datetime [(ngModel)]="endTime" (ionChange)="validCheck()" [disabled]='endTimeInpDis' displayFormat="HH:mm" placeholder="End" [min]='getRegTime(startTime)'></ion-datetime>
       </ion-col>
 
       <ion-col size="auto">

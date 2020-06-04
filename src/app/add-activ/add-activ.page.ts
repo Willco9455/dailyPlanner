@@ -57,8 +57,6 @@ export class AddActivPage implements OnInit {
     if (this.endTime !== undefined) {
       this.endTime = this.endTime.slice(this.endTime.search('T') + 1, this.endTime.indexOf(':', this.endTime.indexOf(':') + 1));
     }
-    // adds the a new activity to the to-do list;
-    this.dayService.addToDo(this.textInp, this.endDateArry, this.endTime);
     this.router.navigate(['']);
   }
 

@@ -66,8 +66,8 @@ export class DayService {
   // function used to find the positon a new activity should go in based on its date, returns the position;
   findPos(startTime: any, endTime: any) {// WORKS!!
 
-    startTime = this.ionTimeConvert(startTime).split(':'); // turns ionic time into array [HH,MM]
-    endTime = this.ionTimeConvert(endTime).split(':'); // turns ionic time into array [HH,MM]
+    startTime = startTime.split(':'); // turns ionic time into array [HH,MM]
+    endTime = endTime.split(':'); // turns ionic time into array [HH,MM]
 
     let x: number;
     for (x = 0; x < this.dayList.length; x++) { // loops through the items currently in daylist array
@@ -155,11 +155,18 @@ export class DayService {
 
   }
 
+  // adds to todo list if possible takes in times in ionic format
   addToDo(activName: string,  StartTime: string, EndTime: string) {
+    // declarations
     const adding = new DayItem(activName, StartTime, EndTime);
-    const position = this.findPos(activDate, activTime);
-    console.log(position);
-    this.items.splice(position, 0, adding);
+    const pos = this.findPos(StartTime, EndTime);
+
+    // checks if there was an error in finding a slot for the new activity
+    if (pos === 'error') {
+      return 'error';
+    }
+
+    this.dayList.splice(pos, 0, adding);
   }
 
   getDate() {
@@ -179,10 +186,10 @@ export class DayService {
     return date;
   }
 
-   async presentAlert() {
+  async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Oops',
-      message: 'You cannot have two activities with the same start time',
+      message: 'That is not a valid activity time :(',
       buttons: ['OK']
     });
 

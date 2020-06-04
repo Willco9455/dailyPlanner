@@ -1,7 +1,8 @@
 {
   "name": "Dialy-Planner",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
