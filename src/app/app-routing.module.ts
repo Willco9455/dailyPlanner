@@ -5,11 +5,15 @@ const routes: Routes = [
   { path: '', redirectTo: 'to-do', pathMatch: 'full' },
   {
     path: 'to-do',
-    loadChildren: () => import('./to-do/to-do.module').then( m => m.ToDoPageModule)
+    loadChildren: () => import('./Pages/to-do/to-do.module').then( m => m.ToDoPageModule)
   },
   {
     path: 'add-activ',
     loadChildren: () => import('./add-activ/add-activ.module').then( m => m.AddActivPageModule)
+  },
+  {
+    path: 'add-action',
+    loadChildren: () => import('./Pages/add-action/add-action.module').then( m => m.AddActionPageModule)
   },
 ];
 

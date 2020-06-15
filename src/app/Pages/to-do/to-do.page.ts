@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DayService } from '../day.service';
+import { DayService } from '../../Services/day.service';
 
 @Component({
   selector: 'app-to-do',

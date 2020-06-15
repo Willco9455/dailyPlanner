@@ -1,0 +1,23 @@
+<ion-content>
+  <h3>Add Activity</h3>
+
+  <ion-item>
+    <ion-label>Name:</ion-label>
+    <ion-input [(ngModel)]="name" (ionChange)="validCheck()"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Start Time:</ion-label>
+    <ion-datetime [(ngModel)]="startTime" (ionChange)="validCheck()" displayFormat="HH:mm"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>End Time:</ion-label>
+    <ion-datetime [(ngModel)]="endTime" (ionChange)="validCheck()" [disabled]='endTimeInpDis' displayFormat="HH:mm" [min]='getRegTime(startTime)'></ion-datetime>
+  </ion-item>
+
+  <ion-button (click)="addActiv()" [disabled]="addDisabled" size="medium">
+    add
+  </ion-button>
+
+</ion-content>

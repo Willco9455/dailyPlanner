@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>Actions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let item of dayList">
+      <ion-item *ngIf='item.action === true'>
+        <ion-label>{{item.name}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="item.completed" (ionChange)='logStuff()'></ion-checkbox>
+      </ion-item>
+    </div>
+  </ion-list>
+
+
+</ion-content>

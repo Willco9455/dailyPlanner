@@ -1,0 +1,24 @@
+<ion-toolbar color='primary'>
+  <ion-title>Day Schedule</ion-title>
+</ion-toolbar>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor='let item of day'>
+      <ion-label>{{ item.name }}</ion-label>
+      {{ item.startTime}} - {{item.endTime}}
+    </ion-item>
+  </ion-list>
+
+  <ion-grid>
+
+    <!-- this row is displayed if adding varibale is false, displays add button but nothing else-->
+    <ion-row>
+      <ion-col size='auto'>
+        <ion-button (click)="showModal()" size="medium" id="addButton">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+</ion-content>

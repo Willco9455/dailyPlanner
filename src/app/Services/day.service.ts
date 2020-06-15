@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DayItem } from './to-do/item.model';
-import { ThrowStmt } from '@angular/compiler';
+import { DayItem } from '../Pages/to-do/item.model';
 import { AlertController } from '@ionic/angular';
 
 @Injectable({
@@ -9,8 +8,6 @@ import { AlertController } from '@ionic/angular';
 export class DayService {
 
   constructor(private alertController: AlertController) { }
-
-
 
   private items: any[] = [
     // current day objects
@@ -38,15 +35,25 @@ export class DayService {
     {
       name: 'first test',
       startTime: '12:00',
-      endTime: '13:00'
+      endTime: '13:00',
+      compTime: 'none',
+      compDate: 'none',
+      completed: false,
+      action: true
     },
     {
       name: 'trollolololoolololo',
       startTime: '13:23',
-      endTime: '13:26'
+      endTime: '13:26',
+      compTime: 'none',
+      compDate: 'none',
+      completed: true,
+      action: true
     },
-    new DayItem('testing212', '15:00', '16:00')
+    new DayItem('testing212', '15:00', '16:00', 'none', 'none', false)
   ];
+
+  catagories = ['none', 'Work', 'Free', 'Family'];
 
 
   getDay() {// WORKS
@@ -158,7 +165,7 @@ export class DayService {
   // adds to todo list if possible takes in times in ionic format
   addToDo(activName: string,  StartTime: string, EndTime: string) {
     // declarations
-    const adding = new DayItem(activName, StartTime, EndTime);
+    const adding = new DayItem(activName, StartTime, EndTime, 'none', 'none', false);
     const pos = this.findPos(StartTime, EndTime);
 
     // checks if there was an error in finding a slot for the new activity
@@ -189,7 +196,7 @@ export class DayService {
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Oops',
-      message: 'That is not a valid activity time :(',
+      message: 'That is not a valid activity',
       buttons: ['OK']
     });
 
