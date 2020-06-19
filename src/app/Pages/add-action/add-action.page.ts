@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-add-action',
   templateUrl: './add-action.page.html',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddActionPage implements OnInit {
 
+  selected = 'action';
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  logEvents(inf: any) {
+    console.log(inf.detail.value);
+    this.selected = inf.detail.value;
   }
 
 }

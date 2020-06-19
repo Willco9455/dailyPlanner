@@ -16,7 +16,7 @@
     <ion-datetime [(ngModel)]="endTime" (ionChange)="validCheck()" [disabled]='endTimeInpDis' displayFormat="HH:mm" [min]='getRegTime(startTime)'></ion-datetime>
   </ion-item>
 
-  <ion-button (click)="addActiv()" [disabled]="addDisabled" size="medium">
+  <ion-button (click)="addActiv()" [disabled]="addDisabled" size="medium" expand='full'>
     add
   </ion-button>
 

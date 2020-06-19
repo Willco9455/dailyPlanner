@@ -1,6 +1,6 @@
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { Router } from '@angular/router';
-import { DayService } from '../Services/day.service';
+import { DayService } from '../../Services/day.service';
 
 @Component({
   selector: 'app-add-activ',

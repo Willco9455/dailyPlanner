@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'add-activ',
-    loadChildren: () => import('./add-activ/add-activ.module').then( m => m.AddActivPageModule)
+    loadChildren: () => import('./Pages/add-activ/add-activ.module').then( m => m.AddActivPageModule)
   },
   {
     path: 'add-action',

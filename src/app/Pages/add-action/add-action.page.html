@@ -1,9 +1,31 @@
+<!-- 
 <ion-header>
   <ion-toolbar>
-    <ion-title>add-action</ion-title>
-  </ion-toolbar>
+  <ion-title>Add</ion-title>
+</ion-toolbar>
 </ion-header>
+-->    
+
 
 <ion-content>
+  <ion-toolbar>
+    <ion-segment (ionChange)='logEvents($event)' value="action">
+      <ion-segment-button value="action">
+        Add Action
+      </ion-segment-button>
+      <ion-segment-button value="catagory">
+        Create Catagory
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div *ngIf="selected === 'action'">
+    <ion-text>you chose to add a action</ion-text>
+  </div>
+  
+
+  <div *ngIf="selected === 'catagory'">
+    <ion-text>you chose to add a catagory</ion-text>
+  </div>
 
 </ion-content>

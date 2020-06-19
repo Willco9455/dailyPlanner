@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DayViewPageRoutingModule } from './day-view-routing.module';
 
 import { DayViewPage } from './day-view.page';
-import { AddActivPageModule } from 'src/app/add-activ/add-activ.module';
+import { AddActivPageModule } from 'src/app/Pages/add-activ/add-activ.module';
 import { AddModalPageModule } from '../../add-modal/add-modal.module';
 
 @NgModule({
