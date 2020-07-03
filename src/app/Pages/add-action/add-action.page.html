@@ -6,7 +6,6 @@
 </ion-header>
 -->    
 
-
 <ion-content>
   <ion-toolbar>
     <ion-segment (ionChange)='logEvents($event)' value="action">
@@ -20,7 +19,23 @@
   </ion-toolbar>
 
   <div *ngIf="selected === 'action'">
-    <ion-text>you chose to add a action</ion-text>
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label >Deadline</ion-label>
+      <ion-datetime  displayFormat="D MMM YYYY" placeholder="None" ></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Hair Color</ion-label>
+      <ion-select (ionChange)='run()' [(ngModel)]="selecVal" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="none">None</ion-select-option>
+        <ion-select-option value="work">Work</ion-select-option>
+      </ion-select>
+    </ion-item>
   </div>
   
 

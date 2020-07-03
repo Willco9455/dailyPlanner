@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddActionPage implements OnInit {
 
   selected = 'action';
+  selecVal = 'none';
 
   constructor() { }
 
@@ -18,6 +19,10 @@ export class AddActionPage implements OnInit {
   logEvents(inf: any) {
     console.log(inf.detail.value);
     this.selected = inf.detail.value;
+  }
+
+  run() {
+    console.log(this.selecVal);
   }
 
 }
