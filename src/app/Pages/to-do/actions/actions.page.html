@@ -11,10 +11,10 @@
 
 <ion-content>
   <ion-list>
-    <div *ngFor="let item of dayList">
-      <ion-item *ngIf='item.action === true'>
-        <ion-label>{{item.name}}</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="item.completed" (ionChange)='logStuff()'></ion-checkbox>
+    <div *ngFor="let action of actions">
+      <ion-item>
+        <ion-label>{{action.name}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="action.completed" (ionChange)='logStuff()'></ion-checkbox>
       </ion-item>
     </div>
   </ion-list>

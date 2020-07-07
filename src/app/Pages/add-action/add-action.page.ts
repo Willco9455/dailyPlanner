@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DayService } from 'src/app/Services/day.service';
 
 
 @Component({
@@ -8,12 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddActionPage implements OnInit {
 
-  selected = 'action';
-  selecVal = 'none';
+  name: string;
+  deadline: string;
+  catagory = 'none';
 
-  constructor() { }
+  catagories: string [];
+  selected = 'action';
+
+  constructor(
+    private dayService: DayService
+  ) { }
 
   ngOnInit() {
+    this.catagories = this.dayService.getCata();
   }
 
   logEvents(inf: any) {
@@ -21,8 +29,14 @@ export class AddActionPage implements OnInit {
     this.selected = inf.detail.value;
   }
 
-  run() {
-    console.log(this.selecVal);
+  addAct() {
+    this.deadline = this.deadConv(this.deadline);
+    this.dayService.addAction(this.name, this.deadline, this.catagory, false);
   }
 
+  deadConv(ion: string) {
+    ion = ion.split('T')[0];
+    console.log(ion);
+    return ion;
+  }
 }

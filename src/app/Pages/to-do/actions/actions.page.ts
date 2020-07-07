@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DayService } from 'src/app/Services/day.service';
-import { DayItem } from '../item.model';
+import { Action } from '../item.model';
 import { ModalController } from '@ionic/angular';
 import { AddActionPage } from '../../add-action/add-action.page';
 
@@ -11,7 +11,7 @@ import { AddActionPage } from '../../add-action/add-action.page';
 })
 export class ActionsPage implements OnInit {
 
-  dayList: DayItem [];
+  actions: Action [];
 
   constructor(
     private dayService: DayService,
@@ -26,12 +26,12 @@ export class ActionsPage implements OnInit {
   }
 
   dayRefresh() {
-    this.dayList = this.dayService.getDay();
+    this.actions = this.dayService.getActions();
 
   }
 
   logStuff() {
-    console.log(this.dayList);
+    console.log(this.actions);
   }
 
   async showModal() {

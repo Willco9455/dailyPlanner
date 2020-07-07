@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DayItem } from '../Pages/to-do/item.model';
+import { DayItem, Action } from '../Pages/to-do/item.model';
 import { AlertController } from '@ionic/angular';
 
 @Injectable({
@@ -9,59 +9,42 @@ export class DayService {
 
   constructor(private alertController: AlertController) { }
 
-  private items: any[] = [
-    // current day objects
-    {
-      name: 'wake up',
-      completed: true,
-      compDate: ['2020', '05', '05'],
-      compTime: '09:15'
-    },
-    {
-      name: 'testing testing 212',
-      completed: false,
-      compDate: ['2020', '05', '05'],
-      compTime: '09:16'
-    },
-    {
-      name: 'some activity',
-      completed: false,
-      compDate: ['2020', '05', '05'],
-      compTime: '13:00'
-    },
-  ];
-
   dayList: DayItem[] = [
     {
       name: 'first test',
       startTime: '12:00',
       endTime: '13:00',
-      compTime: 'none',
-      compDate: 'none',
-      completed: false,
-      action: true
     },
     {
       name: 'trollolololoolololo',
       startTime: '13:23',
       endTime: '13:26',
-      compTime: 'none',
-      compDate: 'none',
-      completed: true,
-      action: true
     },
-    new DayItem('testing212', '15:00', '16:00', 'none', 'none', false)
+    new DayItem('testing212', '15:00', '16:00')
   ];
 
-  catagories = ['none', 'Work', 'Free', 'Family'];
+  actions: Action [] = [
+    {
+    name: 'action 1',
+    deadline: '2020-06-17',
+    catagory: 'None',
+    completed: false
+    },
+    new Action('name', '2021-06-17', 'Falmily', false)
+  ];
 
+  catagories = ['None', 'Work', 'Free', 'Family'];
+
+  getCata() {
+    return [...this.catagories];
+  }
+
+  getActions() {
+    return [...this.actions];
+  }
 
   getDay() {// WORKS
     return [...this.dayList];
-  }
-
-  getToDo() {
-    return [...this.items];
   }
 
   // this converts the way ionic stores time(2020-06-02T16:00:47.314+01:00) to regular format used in findPos function
@@ -165,7 +148,7 @@ export class DayService {
   // adds to todo list if possible takes in times in ionic format
   addToDo(activName: string,  StartTime: string, EndTime: string) {
     // declarations
-    const adding = new DayItem(activName, StartTime, EndTime, 'none', 'none', false);
+    const adding = new DayItem(activName, StartTime, EndTime);
     const pos = this.findPos(StartTime, EndTime);
 
     // checks if there was an error in finding a slot for the new activity
@@ -201,6 +184,11 @@ export class DayService {
     });
 
     await alert.present();
+  }
+
+  addAction(name: string, deadline: string, catagory: string, completed: boolean) {
+    const adding = new Action(name, deadline, catagory, completed);
+    this.actions.splice(0, 0, adding);
   }
 
 }

@@ -6,7 +6,7 @@
 </ion-header>
 -->    
 
-<ion-content>
+<ion-content mode="md">
   <ion-toolbar>
     <ion-segment (ionChange)='logEvents($event)' value="action">
       <ion-segment-button value="action">
@@ -21,21 +21,22 @@
   <div *ngIf="selected === 'action'">
     <ion-item>
       <ion-label>Name:</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]='name' ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label >Deadline</ion-label>
-      <ion-datetime  displayFormat="D MMM YYYY" placeholder="None" ></ion-datetime>
+        <ion-datetime [(ngModel)]='deadline' displayFormat="D MMM YYYY" placeholder="None" ></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label>Hair Color</ion-label>
-      <ion-select (ionChange)='run()' [(ngModel)]="selecVal" okText="Okay" cancelText="Dismiss">
-        <ion-select-option value="none">None</ion-select-option>
-        <ion-select-option value="work">Work</ion-select-option>
+      <ion-label>Catgory</ion-label>
+      <ion-select mode="ios" [(ngModel)]="catagory" okText="Okay" cancelText="Dismiss" interface="popover">
+        <ion-select-option *ngFor="let cat of catagories" [value]="cat">{{ cat }}</ion-select-option>
       </ion-select>
     </ion-item>
+
+    <ion-button (click)="addAct()">CLICK</ion-button>
   </div>
   
 
