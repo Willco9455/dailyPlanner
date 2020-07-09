@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DayService } from 'src/app/Services/day.service';
+
 import { Action } from '../item.model';
 import { ModalController } from '@ionic/angular';
 import { AddActionPage } from '../../add-action/add-action.page';
+import { ActionsService } from 'src/app/Services/actions.service';
 
 @Component({
   selector: 'app-actions',
@@ -14,8 +15,8 @@ export class ActionsPage implements OnInit {
   actions: Action [];
 
   constructor(
-    private dayService: DayService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private actionsService: ActionsService
     ) { }
 
   ngOnInit() {
@@ -26,12 +27,12 @@ export class ActionsPage implements OnInit {
   }
 
   dayRefresh() {
-    this.actions = this.dayService.getActions();
+    this.actions = this.actionsService.getActions();
 
   }
 
-  logStuff() {
-    console.log(this.actions);
+  log(logMe) {
+    console.log(logMe);
   }
 
   async showModal() {
@@ -49,6 +50,11 @@ export class ActionsPage implements OnInit {
     return await modal.present();
   }
 
+  deleteAction(action: Action ) {
+    console.log(this.actions);
+    this.actionsService.deleteAction(action);
+    this.dayRefresh();
+  }
 
 
 

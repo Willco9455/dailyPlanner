@@ -1,6 +1,7 @@
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { Router } from '@angular/router';
 import { DayService } from '../../Services/day.service';
+import { TimeService } from 'src/app/Services/time.service';
 
 @Component({
   selector: 'app-add-activ',
@@ -20,6 +21,7 @@ export class AddActivPage implements OnInit {
 
   constructor(
     private dayService: DayService,
+    private timeService: TimeService,
     private router: Router
     ) { }
 
@@ -30,7 +32,7 @@ export class AddActivPage implements OnInit {
   // runs when the page is bieng trasnitioned into;
   ionViewWillEnter() {
     this.refresh();
-    this.date = this.dayService.getDate();
+    this.date = this.timeService.getDate();
   }
 
   // runs when the screen view is left;

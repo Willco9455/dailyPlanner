@@ -23,25 +23,6 @@ export class DayService {
     new DayItem('testing212', '15:00', '16:00')
   ];
 
-  actions: Action [] = [
-    {
-    name: 'action 1',
-    deadline: '2020-06-17',
-    catagory: 'None',
-    completed: false
-    },
-    new Action('name', '2021-06-17', 'Falmily', false)
-  ];
-
-  catagories = ['None', 'Work', 'Free', 'Family'];
-
-  getCata() {
-    return [...this.catagories];
-  }
-
-  getActions() {
-    return [...this.actions];
-  }
 
   getDay() {// WORKS
     return [...this.dayList];
@@ -159,23 +140,6 @@ export class DayService {
     this.dayList.splice(pos, 0, adding);
   }
 
-  getDate() {
-    const currentDate = new Date();
-    let date: string = currentDate.getDate().toString();
-    let month: string = (currentDate.getMonth() + 1).toString();
-
-    // checks if the month needs a 0 in and if date needs a 0 in front of it and creates the date variable ;
-    if (month.length === 1) {
-      month = '0' + month;
-    }
-    if (date.length === 1) {
-      date = '0' + date;
-    }
-    const year = currentDate.getFullYear();
-    date = year + '-' + month + '-' + date;
-    return date;
-  }
-
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Oops',
@@ -186,10 +150,7 @@ export class DayService {
     await alert.present();
   }
 
-  addAction(name: string, deadline: string, catagory: string, completed: boolean) {
-    const adding = new Action(name, deadline, catagory, completed);
-    this.actions.splice(0, 0, adding);
-  }
+
 
 }
 

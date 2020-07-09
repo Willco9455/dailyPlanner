@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { DayService } from './Services/day.service';
+import { TimeService } from './Services/time.service';
+
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,13 @@ import { DayService } from './Services/day.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  catgories: any [];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private dayService: DayService
+    private timeService: TimeService
+
   ) {
     this.initializeApp();
   }
@@ -27,7 +28,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    this.catgories = this.dayService.catagories;
+    this.timeService.startTimer();
   }
 
 }

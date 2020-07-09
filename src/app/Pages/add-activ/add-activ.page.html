@@ -13,7 +13,7 @@
 
   <ion-item>
     <ion-label >Competion Date</ion-label>
-    <ion-datetime [(ngModel)]="endDate" (ionChange)='button1Check()' displayFormat="D MMM YYYY" [min]='date' max="2100" placeholder="None" ></ion-datetime>
+    <ion-datetime [(ngModel)]="endDate" (ionChange)='button1Check()' displayFormat="D MMM YYYY" [min]='date' placeholder="None" ></ion-datetime>
     <div class="clear">
       <ion-button *ngIf='clearButton1 === true' (click)='clearEndDate()' fill="clear">
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>

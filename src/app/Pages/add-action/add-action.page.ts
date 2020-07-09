@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DayService } from 'src/app/Services/day.service';
+
+import { ModalController } from '@ionic/angular';
+import { ActionsService } from 'src/app/Services/actions.service';
+import { Action } from '../to-do/item.model';
+import { TimeService } from 'src/app/Services/time.service';
 
 
 @Component({
@@ -15,13 +19,17 @@ export class AddActionPage implements OnInit {
 
   catagories: string [];
   selected = 'action';
+  date: string;
 
   constructor(
-    private dayService: DayService
+    private modal: ModalController,
+    private actionsService: ActionsService,
+    private timeService: TimeService
   ) { }
 
   ngOnInit() {
-    this.catagories = this.dayService.getCata();
+    this.catagories = this.actionsService.getCata();
+    this.date = this.timeService.getDate();
   }
 
   logEvents(inf: any) {
@@ -30,8 +38,13 @@ export class AddActionPage implements OnInit {
   }
 
   addAct() {
-    this.deadline = this.deadConv(this.deadline);
-    this.dayService.addAction(this.name, this.deadline, this.catagory, false);
+    if (this.deadline !== undefined) {
+      this.deadline = this.deadConv(this.deadline);
+    } else {
+      this.deadline = 'none';
+    }
+    this.actionsService.addAction(this.name, this.deadline, this.catagory, false);
+    this.modal.dismiss();
   }
 
   deadConv(ion: string) {
@@ -39,4 +52,6 @@ export class AddActionPage implements OnInit {
     console.log(ion);
     return ion;
   }
+
+
 }
