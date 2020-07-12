@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { Action } from '../item.model';
-import { ModalController } from '@ionic/angular';
+import { ModalController} from '@ionic/angular';
 import { AddActionPage } from '../../add-action/add-action.page';
 import { ActionsService } from 'src/app/Services/actions.service';
+
 
 @Component({
   selector: 'app-actions',
@@ -13,6 +14,7 @@ import { ActionsService } from 'src/app/Services/actions.service';
 export class ActionsPage implements OnInit {
 
   actions: Action [];
+  edit = false;
 
   constructor(
     private modalCtrl: ModalController,
@@ -29,10 +31,6 @@ export class ActionsPage implements OnInit {
   dayRefresh() {
     this.actions = this.actionsService.getActions();
 
-  }
-
-  log(logMe) {
-    console.log(logMe);
   }
 
   async showModal() {
@@ -56,6 +54,29 @@ export class ActionsPage implements OnInit {
     this.dayRefresh();
   }
 
+  doReorder(ev: any) {
+
+    console.log(ev.detail);
+    // The `from` and `to` properties contain the index of the item
+    // when the drag started and ended, respectively
+    console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
+
+    this.actionsService.moveAction(ev.detail.from, ev.detail.to);
+
+    // Finish the reorder and position the item in the DOM based on
+    // where the gesture ended. This method can also be called directly
+    // by the reorder group
+    ev.detail.complete();
+  }
+
+  editAct() {
+    this.edit = !this.edit;
+    console.log(this.edit);
+  }
+
+  logActions() {
+    this.actionsService.logAction();
+  }
 
 
 }

@@ -9,13 +9,9 @@ export class ActionsService {
   constructor() { }
 
   actions: Action [] = [
-    {
-    name: 'Action 1',
-    deadline: '2020-06-17',
-    catagory: 'None',
-    completed: false
-    },
-    new Action('Name', '2021-06-17', 'Falmily', false)
+    new Action('Action1', '2020-06-17', 'Free', true),
+    new Action('Name', '2021-06-17', 'Falmily', false),
+    new Action('Not another name', '2017-03-14', 'Work', false)
   ];
 
   catagories = ['None', 'Work', 'Free', 'Family'];
@@ -37,4 +33,16 @@ export class ActionsService {
     const index = this.actions.findIndex(x => x === action);
     this.actions.splice(index, 1);
   }
+
+  moveAction(from: number, to: number) {
+    const action = this.actions[from];
+    this.actions.splice(from, 1);
+    this.actions.splice(to, 0, action);
+    console.log(this.actions);
+  }
+
+  logAction() {
+    console.log(this.actions);
+  }
+
 }

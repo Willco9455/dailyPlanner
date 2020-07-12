@@ -10,6 +10,7 @@
 </ion-header>
 
 <ion-content>
+  <!-- 
   <ion-list>
     <div *ngFor="let action of actions">
       <ion-item-sliding>
@@ -33,6 +34,56 @@
       </ion-item-sliding>
     </div>
   </ion-list>
+  -->
+
+  <ion-reorder-group (ionItemReorder)='doReorder($event)' [disabled]='!edit'>
+    <div *ngFor="let action of actions">
+
+      <ion-reorder *ngIf="edit === true; else elseBlock">
+        <ion-item-sliding>
+          <ion-item>
+            <ion-label>
+              <h6>{{action.name}}</h6>
+              <p>Catagory - {{action.catagory}}</p>
+              <p>Deadline - {{action.deadline}}</p>
+            </ion-label>
+            <ion-icon name="reorder-three-outline"></ion-icon>
+          </ion-item>
+    
+          <ion-item-options>
+            <ion-item-option (click)='deleteAction(action)' color="danger">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-reorder>
+
+      <ng-template #elseBlock>
+        <ion-item-sliding>
+          <ion-item>
+            <ion-label>
+              <h6>{{action.name}}</h6>
+              <p>Catagory - {{action.catagory}}</p>
+              <p>Deadline - {{action.deadline}}</p>
+            </ion-label>
+  
+            <ion-checkbox slot="end" [(ngModel)]="action.completed"></ion-checkbox>
+          </ion-item>
+  
+          <ion-item-options>
+            <ion-item-option (click)='deleteAction(action)' color="danger">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-template>
+
+    </div>
+  </ion-reorder-group>
+
+
+  <ion-button (click)='editAct()'>Move items</ion-button>
+  <ion-button (click)='logActions()'>Log Items</ion-button>
 
 
 </ion-content>
