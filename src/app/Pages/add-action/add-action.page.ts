@@ -13,9 +13,12 @@ import { TimeService } from 'src/app/Services/time.service';
 })
 export class AddActionPage implements OnInit {
 
+  // all these variables are set when the modal is called
   name: string;
   deadline: string;
-  catagory = 'none';
+  catagory: string;
+  edit: boolean;
+  itemEditing: Action; // this is only relevent if you are editing a action and this variable will hold the action you are edditing
 
   catagories: string [];
   selected = 'action';
@@ -30,10 +33,10 @@ export class AddActionPage implements OnInit {
   ngOnInit() {
     this.catagories = this.actionsService.getCata();
     this.date = this.timeService.getDate();
+    console.log(this.itemEditing);
   }
 
-  logEvents(inf: any) {
-    console.log(inf.detail.value);
+  updateTool(inf: any) { // this updates which option of the toolbar is selected
     this.selected = inf.detail.value;
   }
 
@@ -51,6 +54,17 @@ export class AddActionPage implements OnInit {
     ion = ion.split('T')[0];
     console.log(ion);
     return ion;
+  }
+
+  update() {
+    this.actionsService.updateAction(
+      this.itemEditing,
+      new Action(
+        this.name,
+        this.deadConv(this.deadline),
+        this.catagory,
+        this.itemEditing.completed));
+    this.modal.dismiss();
   }
 
 

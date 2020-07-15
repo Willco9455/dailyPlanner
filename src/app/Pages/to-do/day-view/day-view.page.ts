@@ -5,6 +5,7 @@ import { DayService } from 'src/app/Services/day.service';
 
 import { ModalController } from '@ionic/angular';
 import { AddModalPage } from '../../add-modal/add-modal.page';
+import { DayItem } from '../item.model';
 
 
 @Component({
@@ -70,5 +71,9 @@ export class DayViewPage implements OnInit {
     return await modal.present();
   }
 
+  rmItem(item: DayItem) {
+    this.dayService.removeItem(item);
+    this.reloadDay();
+  }
 
 }

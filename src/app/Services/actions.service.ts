@@ -10,7 +10,7 @@ export class ActionsService {
 
   actions: Action [] = [
     new Action('Action1', '2020-06-17', 'Free', true),
-    new Action('Name', '2021-06-17', 'Falmily', false),
+    new Action('Name', '2021-06-17', 'Family', false),
     new Action('Not another name', '2017-03-14', 'Work', false)
   ];
 
@@ -43,6 +43,11 @@ export class ActionsService {
 
   logAction() {
     console.log(this.actions);
+  }
+
+  updateAction(old: Action, neww: Action) {
+    const index = this.actions.findIndex(x => x === old);
+    this.actions.splice(index, 1, neww);
   }
 
 }

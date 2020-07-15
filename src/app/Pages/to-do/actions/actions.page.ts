@@ -4,6 +4,9 @@ import { Action } from '../item.model';
 import { ModalController} from '@ionic/angular';
 import { AddActionPage } from '../../add-action/add-action.page';
 import { ActionsService } from 'src/app/Services/actions.service';
+import { stringify } from 'querystring';
+import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -15,6 +18,7 @@ export class ActionsPage implements OnInit {
 
   actions: Action [];
   edit = false;
+  properties: object;
 
   constructor(
     private modalCtrl: ModalController,
@@ -33,12 +37,30 @@ export class ActionsPage implements OnInit {
 
   }
 
-  async showModal() {
+  async showModal(passed: any) {
+    // this if else sets the data before going into the modal depending on if it is an edit or not
+    if (passed === 'new') {
+      this.properties = {
+        name: undefined,
+        deadline: undefined,
+        catagory: 'None',
+        edit: false
+      };
+    } else {
+      this.properties = {
+        name: passed.name,
+        deadline: passed.deadline,
+        catagory: passed.catagory,
+        edit: true,
+        itemEditing: passed
+      };
+    }
     const modal = await this.modalCtrl.create({
       component: AddActionPage,
       cssClass: 'add-modal-class',
       swipeToClose: true,
-      backdropDismiss: true
+      backdropDismiss: true,
+      componentProps: this.properties
     });
 
     modal.onDidDismiss().then((dataReturnded) => {
@@ -55,12 +77,8 @@ export class ActionsPage implements OnInit {
   }
 
   doReorder(ev: any) {
-
-    console.log(ev.detail);
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
-    console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
-
     this.actionsService.moveAction(ev.detail.from, ev.detail.to);
 
     // Finish the reorder and position the item in the DOM based on

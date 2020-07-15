@@ -37,6 +37,11 @@ export class DayService {
   // function used to find the positon a new activity should go in based on its date, returns the position;
   findPos(startTime: any, endTime: any) {// WORKS!!
 
+    // to check if the day is emty and if it is return 0 as positon
+    if (this.dayList.length === 0) {
+      return 0;
+    }
+
     startTime = startTime.split(':'); // turns ionic time into array [HH,MM]
     endTime = endTime.split(':'); // turns ionic time into array [HH,MM]
 
@@ -148,6 +153,13 @@ export class DayService {
     });
 
     await alert.present();
+  }
+
+  removeItem(item: DayItem) {
+    const index = this.dayList.findIndex(x => x === item);
+    console.log(index);
+    this.dayList.splice(index, 1);
+    console.log('ran');
   }
 
 

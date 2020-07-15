@@ -6,14 +6,14 @@
 </ion-header>
 -->    
 
-<ion-content mode="md">
+<ion-content mode="md" *ngIf="edit === false; else elseBlock">
   <ion-toolbar>
-    <ion-segment (ionChange)='logEvents($event)' value="action">
+    <ion-segment (ionChange)='updateTool($event)' value="action">
       <ion-segment-button value="action">
         Add Action
       </ion-segment-button>
       <ion-segment-button value="catagory">
-        Create Catagory
+        Edit Catagories
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -43,5 +43,33 @@
   <div *ngIf="selected === 'catagory'">
     <ion-text>you chose to add a catagory</ion-text>
   </div>
-
 </ion-content>
+
+<ng-template #elseBlock>
+  <ion-header>
+    <ion-title>Edit</ion-title>
+  </ion-header>
+
+  <ion-content>
+
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input [(ngModel)]='name' ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label >Deadline</ion-label>
+        <ion-datetime [(ngModel)]='deadline' displayFormat="D MMM YYYY" [min]='date' max='2077' placeholder="None" ></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Catgory</ion-label>
+      <ion-select mode="ios" [(ngModel)]="catagory" okText="Okay" cancelText="Dismiss" interface="popover">
+        <ion-select-option *ngFor="let cat of catagories" [value]="cat">{{ cat }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button (click)="update()">Save</ion-button>
+
+  </ion-content>
+</ng-template>

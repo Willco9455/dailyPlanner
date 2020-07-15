@@ -14,8 +14,6 @@ export class TimeService {
     const timeUpdate = window.setInterval(this.updateTime, 1000);
   }
 
-
-
   updateTime() {
     const d = new Date();
     this.time = d.getHours().toString() + ':' + d.getMinutes().toString();
