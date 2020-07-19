@@ -2,8 +2,8 @@
   <ion-toolbar color='primary'>
     <ion-title>Actions</ion-title>
     <ion-buttons slot="end">
-      <ion-button  (click)='showModal("new")'>
-        <ion-icon size='large' slot="icon-only" name="add-circle-outline"></ion-icon>
+      <ion-button >
+        <ion-icon size='medium' name="swap-vertical-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -55,7 +55,7 @@
 
   <ion-button (click)='editAct()'>Move items</ion-button>
 
-  <ion-button shape='round'  class="addButton">
+  <ion-button (click)='showModal("new")' shape='round' class="addButton">
     <ion-icon slot="icon-only" name="add"></ion-icon>
   </ion-button>
 

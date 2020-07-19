@@ -1,15 +1,17 @@
+
+
 .addButton{
     bottom: 0;
     right: 0;
     position: fixed;
     z-index: 10;
     margin: 0px 10px 10px 10px;
-    border: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    border-radius: 50%;
+    --border-radius: 500px;
+    --padding-end: 0px;
+    --padding-start: 0px;
     height: 50px;
     width: 60px;
-    ion-icon{
-        font-size: 1000px;
-    }
+    ion-icon {
+        font-size: larger;
+    }    
 }

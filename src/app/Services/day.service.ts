@@ -10,16 +10,8 @@ export class DayService {
   constructor(private alertController: AlertController) { }
 
   dayList: DayItem[] = [
-    {
-      name: 'first test',
-      startTime: '12:00',
-      endTime: '13:00',
-    },
-    {
-      name: 'trollolololoolololo',
-      startTime: '13:23',
-      endTime: '13:26',
-    },
+    new DayItem('first test', '12:00', '13:00'),
+    new DayItem('trollolololoolololo', '13:23', '13:26'),
     new DayItem('testing212', '15:00', '16:00')
   ];
 
