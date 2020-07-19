@@ -16,6 +16,8 @@ export class ActionsService {
 
   catagories = ['None', 'Work', 'Free', 'Family'];
 
+  selectedView = 'all';
+
   getCata() {
     return [...this.catagories];
   }

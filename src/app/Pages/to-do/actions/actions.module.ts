@@ -8,6 +8,8 @@ import { ActionsPageRoutingModule } from './actions-routing.module';
 
 import { ActionsPage } from './actions.page';
 import { AddActionPageModule } from '../../add-action/add-action.module';
+import { PopOverPageModule } from '../../pop-over/pop-over.module';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { AddActionPageModule } from '../../add-action/add-action.module';
     FormsModule,
     IonicModule,
     ActionsPageRoutingModule,
-    AddActionPageModule
+    AddActionPageModule,
+    PopOverPageModule
   ],
   declarations: [ActionsPage]
 })

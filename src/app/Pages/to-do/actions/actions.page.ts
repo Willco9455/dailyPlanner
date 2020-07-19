@@ -1,12 +1,13 @@
 import { Component, OnInit} from '@angular/core';
 
 import { Action } from '../item.model';
-import { ModalController} from '@ionic/angular';
+import { ModalController, PopoverController} from '@ionic/angular';
 import { AddActionPage } from '../../add-action/add-action.page';
 import { ActionsService } from 'src/app/Services/actions.service';
 import { stringify } from 'querystring';
 import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 import { ThrowStmt } from '@angular/compiler';
+import { PopOverPage } from '../../pop-over/pop-over.page';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ActionsPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private actionsService: ActionsService
+    private actionsService: ActionsService,
+    private popoverController: PopoverController
     ) { }
 
   ngOnInit() {
@@ -94,6 +96,17 @@ export class ActionsPage implements OnInit {
 
   logActions() {
     this.actionsService.logAction();
+  }
+
+  async presentPopover(ev: any) {
+    console.log('ran');
+    const popover = await this.popoverController.create({
+      component: PopOverPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 
 

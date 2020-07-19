@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'add-action',
     loadChildren: () => import('./Pages/add-action/add-action.module').then( m => m.AddActionPageModule)
   },
+  {
+    path: 'pop-over',
+    loadChildren: () => import('./Pages/pop-over/pop-over.module').then( m => m.PopOverPageModule)
+  },
 ];
 
 @NgModule({
