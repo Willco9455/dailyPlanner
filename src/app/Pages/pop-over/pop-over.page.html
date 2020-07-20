@@ -1,6 +1,6 @@
 <ion-content>
   <ion-list>
-    <ion-radio-group value='checkedValue'>
+    <ion-radio-group (ionChange)='updateSelected()' [(ngModel)]='selectedView'>
         <ion-item>
           <ion-icon name="today-outline"></ion-icon>
           <ion-label>

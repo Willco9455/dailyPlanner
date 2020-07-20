@@ -25,7 +25,6 @@ export class DayViewPage implements OnInit {
 
   constructor(
     private dayService: DayService,
-    private navController: NavController,
     private modalCtrl: ModalController
     ) { }
 

@@ -4,10 +4,8 @@ import { Action } from '../item.model';
 import { ModalController, PopoverController} from '@ionic/angular';
 import { AddActionPage } from '../../add-action/add-action.page';
 import { ActionsService } from 'src/app/Services/actions.service';
-import { stringify } from 'querystring';
-import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
-import { ThrowStmt } from '@angular/compiler';
 import { PopOverPage } from '../../pop-over/pop-over.page';
+import { TimeService } from 'src/app/Services/time.service';
 
 
 @Component({
@@ -20,11 +18,13 @@ export class ActionsPage implements OnInit {
   actions: Action [];
   edit = false;
   properties: object;
+  selected = this.actionsService.selectedView;
 
   constructor(
     private modalCtrl: ModalController,
     private actionsService: ActionsService,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private timeService: TimeService
     ) { }
 
   ngOnInit() {
@@ -32,11 +32,11 @@ export class ActionsPage implements OnInit {
 
   ionViewWillEnter() {
     this.dayRefresh();
+    console.log(this.timeService.getWeekRange());
   }
 
   dayRefresh() {
     this.actions = this.actionsService.getActions();
-
   }
 
   async showModal(passed: any) {
@@ -106,6 +106,13 @@ export class ActionsPage implements OnInit {
       event: ev,
       translucent: true
     });
+
+    const interval = setInterval(() => this.dayRefresh(), 10);
+
+    popover.onDidDismiss().then((dataReturnded) => {
+      clearInterval(interval);
+    });
+
     return await popover.present();
   }
 

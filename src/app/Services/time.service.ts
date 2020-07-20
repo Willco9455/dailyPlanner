@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class TimeService {
 
   time: string;
-
+  week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   constructor() { }
 
@@ -18,7 +18,6 @@ export class TimeService {
     const d = new Date();
     this.time = d.getHours().toString() + ':' + d.getMinutes().toString();
     console.log(this.time);
-
   }
 
   getDate() {
@@ -37,4 +36,56 @@ export class TimeService {
     date = year + '-' + month + '-' + date;
     return date;
   }
+
+  getWeekRange() {
+    const currentDate = new Date();
+    const day = this.week[currentDate.getDay()];
+    console.log(this.getDate());
+    this.addToDate(this.getDate(), 100);
+    console.log(day);
+    return('nothing');
+  }
+
+  leapYear(year: number) {
+    return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+  }
+
+  addToDate(date: any, adding: number) {
+    date = date.split('-');
+    date = ['2020', '04', '25'];
+    date[1] = (parseInt(date[1], 10)).toString(); // this removes the 0 from the front fo the month date if there is one
+    const leap = this.leapYear(parseInt((date[0]), 10));
+    console.log(date);
+    while (adding !== 0) {
+      if (
+          (date[2] === '28' && date[1] === '2' && !leap) ||
+          ()
+        ) {
+        // runs if trying to add a day to feburay when the date is 28 and its not a leap year
+        date[1] = (parseInt(date[1], 10) + 1).toString();
+        date[2] = '1';
+      } else if (date[2] === '29' && date[1] === '2' && leap) {
+        // runs if trying to add a day to feburay when the date is 28 and it is a leap year
+        date[1] = (parseInt(date[1], 10) + 1).toString();
+        date[2] = '1';
+      } else if (date[2] === '30' && (date[1] === '4' || date[1] === '6' || date[1] === '9' || date[1] === '11')) {
+        // runs if trying to add a day to the months with 30 days
+        date[1] = (parseInt(date[1], 10) + 1).toString();
+        date[2] = '1';
+      } else if (date[2] === '31' && date[1] === '12') {
+        date[0] = (parseInt(date[0], 10) + 1).toString();
+        date[1] = '1';
+        date[2] = '1';
+      } else if (date[2] === '31') {
+        date[1] = (parseInt(date[1], 10) + 1).toString();
+        date[2] = '1';
+      } else {
+        date[2] = (parseInt(date[2], 10) + 1).toString();
+      }
+      adding -= 1;
+      console.log(date);
+    }
+
+  }
+
 }

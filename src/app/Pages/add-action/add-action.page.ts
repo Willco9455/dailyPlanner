@@ -27,7 +27,7 @@ export class AddActionPage implements OnInit {
   constructor(
     private modal: ModalController,
     private actionsService: ActionsService,
-    private timeService: TimeService
+    private timeService: TimeService,
   ) { }
 
   ngOnInit() {
@@ -66,6 +66,5 @@ export class AddActionPage implements OnInit {
         this.itemEditing.completed));
     this.modal.dismiss();
   }
-
 
 }
