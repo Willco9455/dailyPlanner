@@ -15,7 +15,7 @@ export class ActionsService {
     new Action('Not another name', '2020-07-20', 'Work', false)
   ];
 
-  currentActions = this.actions.slice();
+  currentActions = this.copyActions();
 
   catagories = ['None', 'Work', 'Free', 'Family'];
 
@@ -51,9 +51,24 @@ export class ActionsService {
     console.log(this.actions);
   }
 
+  checkActEq(a: Action, b: Action) {
+    if (
+      a.name === b.name &&
+      a.deadline === b.deadline &&
+      a.catagory === b.catagory &&
+      a.completed === b.completed
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   updateAction(old: Action, neww: Action) {
-    const index = this.actions.findIndex(x => x === old);
+    const index = this.actions.findIndex(x => this.checkActEq(x, old));
+    console.log(index);
     this.actions.splice(index, 1, neww);
+    console.log(this.actions);
     this.updateCurrent();
   }
 
@@ -67,17 +82,52 @@ export class ActionsService {
     this.selectedView = newVal;
   }
 
+  // function that updates the current actions in view when the main actions array is changed
+  updateCurrent() {
+    if (this.selectedView === 'all') {
+      this.currentActions = this.copyActions();
+    } else if (this.selectedView === 'day') {
+      this.setDayView();
+    } else {
+      this.setWeekView();
+    }
+  }
+
+  // sets the curent actions varaible to the actions just for the current day, runs when day view is selected
   setDayView() {
     const results = this.actions.filter( x => x.deadline === this.timeService.getDate());
     this.currentActions = results;
   }
 
-  // function that updates the current actions in view when the main actions array is changed
-  updateCurrent() {
-    if (this.selectedView === 'all') {
-      this.currentActions = this.actions.slice();
-    } else if (this.selectedView === 'day') {
-      this.setDayView();
+  setWeekView() {
+    const weekAry = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const week = this.timeService.getWeekRange();
+    const results = this.copyActions().filter( x =>
+      week.includes(x.deadline)
+    );
+    this.currentActions = results;
+    for (const i of this.currentActions) {
+      const pos = this.currentActions.indexOf(i);
+      const dayPos = week.indexOf(this.currentActions[pos].deadline);
+      this.currentActions[pos].deadline = weekAry[dayPos];
     }
+    console.log('actions', this.actions);
   }
+
+  // creates a deep copy of the actions array
+  copyActions() { // COMPLETE
+    const newy: Action [] = [];
+    for (const i of this.actions) {
+      const adding: Action = {
+        name: i.name.slice(),
+        deadline: i.deadline.slice(),
+        catagory: i.catagory.slice(),
+        completed: i.completed
+      };
+      newy.push(adding);
+    }
+    return (newy);
+  }
+
+
 }
