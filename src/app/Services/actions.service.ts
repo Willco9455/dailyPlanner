@@ -72,6 +72,7 @@ export class ActionsService {
     this.updateCurrent();
   }
 
+
   // these are the getters and setters for the selected view variable used by the popover
   getSelecView() {
     return this.selectedView;
