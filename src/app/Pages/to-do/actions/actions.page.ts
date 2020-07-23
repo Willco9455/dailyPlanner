@@ -6,6 +6,7 @@ import { AddActionPage } from '../../add-action/add-action.page';
 import { ActionsService } from 'src/app/Services/actions.service';
 import { PopOverPage } from '../../pop-over/pop-over.page';
 import { TimeService } from 'src/app/Services/time.service';
+import { StorageService } from 'src/app/Services/storage.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ActionsPage implements OnInit {
     private modalCtrl: ModalController,
     private actionsService: ActionsService,
     private popoverController: PopoverController,
-    private timeService: TimeService
+    private timeService: TimeService,
+    private storageService: StorageService
     ) { }
 
   ngOnInit() {
@@ -33,6 +35,8 @@ export class ActionsPage implements OnInit {
   ionViewWillEnter() {
     this.dayRefresh();
     console.log(this.timeService.getWeekRange());
+    this.storageService.storeData();
+    this.storageService.retriveData();
   }
 
   dayRefresh() {
