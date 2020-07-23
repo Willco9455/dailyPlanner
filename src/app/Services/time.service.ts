@@ -55,9 +55,10 @@ export class TimeService {
       monday = this.minusFromDate(this.getDate(), pos);
     }
     range[0] = monday;
-    for (let i = 0; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       range.push(this.addToDate(monday, i));
     }
+    console.log(range);
     return(range);
   }
 

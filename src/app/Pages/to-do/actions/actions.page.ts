@@ -35,8 +35,6 @@ export class ActionsPage implements OnInit {
   ionViewWillEnter() {
     this.dayRefresh();
     console.log(this.timeService.getWeekRange());
-    this.storageService.storeData();
-    this.storageService.retriveData();
   }
 
   dayRefresh() {
