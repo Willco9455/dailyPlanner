@@ -7,6 +7,7 @@ import { ActionsService } from 'src/app/Services/actions.service';
 import { PopOverPage } from '../../pop-over/pop-over.page';
 import { TimeService } from 'src/app/Services/time.service';
 import { StorageService } from 'src/app/Services/storage.service';
+import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 
 @Component({
@@ -26,7 +27,6 @@ export class ActionsPage implements OnInit {
     private actionsService: ActionsService,
     private popoverController: PopoverController,
     private timeService: TimeService,
-    private storageService: StorageService
     ) { }
 
   ngOnInit() {
@@ -34,11 +34,11 @@ export class ActionsPage implements OnInit {
 
   ionViewWillEnter() {
     this.dayRefresh();
-    console.log(this.timeService.getWeekRange());
   }
 
   dayRefresh() {
     this.actions = this.actionsService.getActions();
+    this.selected = this.actionsService.selectedView;
   }
 
   async showModal(passed: any) {
@@ -51,6 +51,7 @@ export class ActionsPage implements OnInit {
         edit: false
       };
     } else {
+      console.log('deadline', passed.deadline);
       this.properties = {
         name: passed.name,
         deadline: passed.deadline,
@@ -116,6 +117,10 @@ export class ActionsPage implements OnInit {
     });
 
     return await popover.present();
+  }
+
+  dateToDay(date: string) {
+    return this.timeService.dateToDay(date);
   }
 
 

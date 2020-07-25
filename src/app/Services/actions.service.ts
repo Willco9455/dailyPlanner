@@ -105,12 +105,6 @@ export class ActionsService {
       week.includes(x.deadline)
     );
     this.currentActions = results;
-    for (const i of this.currentActions) {
-      const pos = this.currentActions.indexOf(i);
-      const dayPos = week.indexOf(this.currentActions[pos].deadline);
-      this.currentActions[pos].deadline = weekAry[dayPos];
-    }
-    console.log('actions', this.actions);
   }
 
   // creates a deep copy of the actions array

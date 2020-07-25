@@ -19,7 +19,8 @@
           <ion-label>
             <h6>{{action.name}}</h6>
             <p>Catagory - {{action.catagory}}</p>
-            <p>Deadline - {{action.deadline}}</p>
+            <p *ngIf="selected === 'week'">Deadline - {{this.dateToDay(action.deadline)}}</p>
+            <p *ngIf="selected !== 'week'">Deadline - {{action.deadline}}</p>
           </ion-label>
           <ion-icon name="reorder-three-outline"></ion-icon>
         </ion-item>
@@ -31,7 +32,8 @@
             <ion-label>
               <h6>{{action.name}}</h6>
               <p>Catagory - {{action.catagory}}</p>
-              <p>Deadline - {{action.deadline}}</p>
+              <p *ngIf="selected === 'week'">Deadline - {{this.dateToDay(action.deadline)}}</p>
+              <p *ngIf="selected !== 'week'">Deadline - {{action.deadline}}</p>
             </ion-label>
   
             <ion-checkbox slot="end" [(ngModel)]="action.completed"></ion-checkbox>
@@ -55,9 +57,12 @@
 
   <ion-button (click)='editAct()'>Move items</ion-button>
 
-  <ion-button (click)='showModal("new")' shape='round' class="addButton">
-    <ion-icon slot="icon-only" name="add"></ion-icon>
-  </ion-button>
+
+  <ion-fab (click)='showModal("new")' vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 
 </ion-content>

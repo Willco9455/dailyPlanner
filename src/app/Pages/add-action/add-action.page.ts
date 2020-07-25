@@ -24,6 +24,8 @@ export class AddActionPage implements OnInit {
   selected = 'action';
   date: string;
 
+  butonDis = true;
+
   constructor(
     private modal: ModalController,
     private actionsService: ActionsService,
@@ -33,7 +35,7 @@ export class AddActionPage implements OnInit {
   ngOnInit() {
     this.catagories = this.actionsService.getCata();
     this.date = this.timeService.getDate();
-    console.log(this.itemEditing);
+    console.log('item edditing', this.itemEditing);
   }
 
   updateTool(inf: any) { // this updates which option of the toolbar is selected
@@ -65,6 +67,14 @@ export class AddActionPage implements OnInit {
         this.catagory,
         this.itemEditing.completed));
     this.modal.dismiss();
+  }
+
+  validate() {
+    if (this.name.length === 0) {
+      this.butonDis = true;
+    } else {
+      this.butonDis = false;
+    }
   }
 
 }

@@ -8,6 +8,8 @@ export class TimeService {
   time: string; // variable that is constantly updated to the current time by the updateTime Function
   // used by getWeekRange to determine the current day
   week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  week2  = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
 
   constructor() { }
 
@@ -45,10 +47,9 @@ export class TimeService {
   getWeekRange() { // COMPLETE
     let monday: string;
     const range = [];
-    const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const currentDate = new Date();
     const day = this.week[currentDate.getDay()];
-    const pos = week.indexOf(day);
+    const pos = this.week2.indexOf(day);
     if (pos === 0) {
       monday = this.getDate();
     } else {
@@ -58,7 +59,6 @@ export class TimeService {
     for (let i = 1; i <= 6; i++) {
       range.push(this.addToDate(monday, i));
     }
-    console.log(range);
     return(range);
   }
 
@@ -139,6 +139,19 @@ export class TimeService {
       }
     }
     return (date[0] + '-' + date[1] + '-'  + date[2]);
+  }
+
+  dayToDate(day: string) {
+    const pos = this.week2.indexOf(day);
+    const date = this.getWeekRange()[pos];
+    return(date);
+  }
+
+  dateToDay(date: string) {
+    const weekRange = this.getWeekRange();
+    const pos = weekRange.indexOf(date);
+    const day = this.week2[pos];
+    return(day);
   }
 
 }
