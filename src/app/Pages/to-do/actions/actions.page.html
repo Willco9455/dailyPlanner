@@ -11,6 +11,23 @@
 
 <ion-content>
 
+  <ion-toolbar mode='ios'>
+    <ion-segment value="day" style="width: 95%;">
+      <ion-segment-button value="day">
+        <ion-icon name="today-outline"></ion-icon>
+        Day
+      </ion-segment-button>
+      <ion-segment-button value="week">
+        <ion-icon name="calendar-outline"></ion-icon>
+        Week
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        <ion-icon name="list-outline"></ion-icon>
+        All
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
   <ion-reorder-group (ionItemReorder)='doReorder($event)' [disabled]='!edit'>
     <div *ngFor="let action of actions">
       <!-- this section is if the the user has elected to edit the order of there actions-->
@@ -28,7 +45,7 @@
 
       <ng-template #elseBlock>
         <ion-item-sliding>
-          <ion-item>
+          <ion-item lines='full' class="action">
             <ion-label>
               <h6>{{action.name}}</h6>
               <p>Catagory - {{action.catagory}}</p>
