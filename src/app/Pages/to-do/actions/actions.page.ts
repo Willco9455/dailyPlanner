@@ -37,8 +37,11 @@ export class ActionsPage implements OnInit {
   }
 
   dayRefresh() {
+    this.actionsService.setSelecView(this.selected);
+    this.actionsService.updateCurrent();
     this.actions = this.actionsService.getActions();
-    this.selected = this.actionsService.selectedView;
+    console.log('selected', this.selected);
+    console.log('remote', this.actionsService.selectedView);
   }
 
   async showModal(passed: any) {
@@ -102,7 +105,6 @@ export class ActionsPage implements OnInit {
   }
 
   async presentPopover(ev: any) {
-    console.log('ran');
     const popover = await this.popoverController.create({
       component: PopOverPage,
       cssClass: 'my-custom-class',
@@ -110,10 +112,7 @@ export class ActionsPage implements OnInit {
       translucent: true
     });
 
-    const interval = setInterval(() => this.dayRefresh(), 10);
-
     popover.onDidDismiss().then((dataReturnded) => {
-      clearInterval(interval);
     });
 
     return await popover.present();

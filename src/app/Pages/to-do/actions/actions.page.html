@@ -10,29 +10,33 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-toolbar mode='ios'>
-    <ion-segment value="day" style="width: 95%;">
-      <ion-segment-button value="day">
+  <ion-toolbar  mode='ios'>
+    <ion-segment (ionChange)='dayRefresh()' style="width: 90%;" [(ngModel)]='selected' value="day">
+      
+      <ion-segment-button value="day" layout="icon-start">
         <ion-icon name="today-outline"></ion-icon>
-        Day
+        <ion-label>Day</ion-label> 
       </ion-segment-button>
-      <ion-segment-button value="week">
-        <ion-icon name="calendar-outline"></ion-icon>
-        Week
+      
+      <ion-segment-button value="week" layout='icon-start'>
+          <ion-icon name="calendar-outline"></ion-icon>
+          <ion-label>Week</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="all">
+      
+      <ion-segment-button value="all" layout='icon-start'>
         <ion-icon name="list-outline"></ion-icon>
-        All
+        <ion-label>All</ion-label>
       </ion-segment-button>
+      
     </ion-segment>
   </ion-toolbar>
 
-  <ion-reorder-group (ionItemReorder)='doReorder($event)' [disabled]='!edit'>
-    <div *ngFor="let action of actions">
-      <!-- this section is if the the user has elected to edit the order of there actions-->
-      <ion-reorder *ngIf="edit === true; else elseBlock">
-        <ion-item>
+
+    <ion-reorder-group (ionItemReorder)='doReorder($event)' [disabled]='!edit'>
+      <div *ngFor="let action of actions">
+        <!-- this section is if the the user has elected to edit the order of there actions-->
+        <ion-reorder *ngIf="edit === true; else elseBlock">
+          <ion-item>
           <ion-label>
             <h6>{{action.name}}</h6>
             <p>Catagory - {{action.catagory}}</p>
