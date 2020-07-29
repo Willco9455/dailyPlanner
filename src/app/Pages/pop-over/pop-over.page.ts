@@ -9,15 +9,14 @@ import { ActionsService } from 'src/app/Services/actions.service';
 })
 export class PopOverPage implements OnInit {
 
-  selectedView = this.actionsService.getSelecView();
+  srtBy = this.actionsService.getSrt();
 
   constructor(private actionsService: ActionsService) { }
 
   ngOnInit() {
   }
 
-  updateSelected() {
-    this.actionsService.setSelecView(this.selectedView);
-    this.actionsService.updateCurrent();
+  updateSrtBy() {
+    this.actionsService.setSrt(this.srtBy);
   }
 }

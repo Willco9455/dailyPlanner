@@ -20,7 +20,7 @@ export class ActionsPage implements OnInit {
   actions: Action [];
   edit = false;
   properties: object;
-  selected = this.actionsService.selectedView;
+  selected = this.actionsService.getSelecView();
 
   constructor(
     private modalCtrl: ModalController,
@@ -34,15 +34,15 @@ export class ActionsPage implements OnInit {
 
   ionViewWillEnter() {
     this.dayRefresh();
+    this.actionsService.srtByDate();
   }
 
   dayRefresh() {
     this.actionsService.setSelecView(this.selected);
     this.actionsService.updateCurrent();
     this.actions = this.actionsService.getActions();
-    console.log('selected', this.selected);
-    console.log('remote', this.actionsService.selectedView);
   }
+
 
   async showModal(passed: any) {
     // this if else sets the data before going into the modal depending on if it is an edit or not
@@ -78,6 +78,26 @@ export class ActionsPage implements OnInit {
     return await modal.present();
   }
 
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopOverPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+
+    const popOpn = window.setInterval(() => {
+      this.actionsService.updateCurrent();
+      this.dayRefresh();
+    }, 100);
+
+    popover.onDidDismiss().then((dataReturnded) => {
+      clearInterval(popOpn);
+    });
+
+    return await popover.present();
+  }
+
   deleteAction(action: Action ) {
     console.log(this.actions);
     this.actionsService.deleteAction(action);
@@ -98,24 +118,6 @@ export class ActionsPage implements OnInit {
   editAct() {
     this.edit = !this.edit;
     console.log(this.edit);
-  }
-
-  logActions() {
-    this.actionsService.logAction();
-  }
-
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopOverPage,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-
-    popover.onDidDismiss().then((dataReturnded) => {
-    });
-
-    return await popover.present();
   }
 
   dateToDay(date: string) {

@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar color='primary'>
     <ion-title>Actions</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)='editAct()'>Move items</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -22,8 +25,6 @@
         <ion-icon name="today-outline"></ion-icon>
         <ion-label>Day</ion-label> 
       </ion-segment-button>
-      
-      
       
     </ion-segment>
 
@@ -80,7 +81,7 @@
   </ion-reorder-group>
 
 
-  <ion-button (click)='editAct()'>Move items</ion-button>
+ 
 
 
   <ion-fab (click)='showModal("new")' vertical="bottom" horizontal="end" slot="fixed">

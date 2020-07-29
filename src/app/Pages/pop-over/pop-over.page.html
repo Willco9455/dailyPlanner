@@ -1,6 +1,6 @@
 <ion-content>
   <ion-list>
-    <ion-radio-group value='catagory'>
+    <ion-radio-group (ionChange)='updateSrtBy()' [(ngModel)]='srtBy' value='catagory'>
         <ion-item>
           <ion-label>
            Catagory
