@@ -1,31 +1,28 @@
 <ion-content>
   <ion-list>
-    <ion-radio-group (ionChange)='updateSelected()' [(ngModel)]='selectedView'>
+    <ion-radio-group value='catagory'>
         <ion-item>
-          <ion-icon name="today-outline"></ion-icon>
           <ion-label>
-           Day
+           Catagory
           </ion-label>
           <ion-radio
-            value='day'>
+            value='catagory'>
           </ion-radio>
         </ion-item>
         <ion-item>
-          <ion-icon name="calendar-outline"></ion-icon>
           <ion-label>
-            Week
+            Date
           </ion-label>
           <ion-radio
-            value='week'>
+            value='date'>
           </ion-radio>
         </ion-item>
         <ion-item>
-          <ion-icon name="list-outline"></ion-icon>
           <ion-label>
-            All
+            Custom
           </ion-label>
           <ion-radio
-            value='all'>
+            value='custom'>
           </ion-radio>
         </ion-item>
     </ion-radio-group>

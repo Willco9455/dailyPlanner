@@ -10,9 +10,15 @@ export class ActionsService {
   constructor(private timeService: TimeService) { }
 
   actions: Action [] = [
-    new Action('Action1', '2020-07-20', 'Free', true),
-    new Action('Name', '2020-07-21', 'Family', false),
-    new Action('Not another name', '2020-07-20', 'Work', false)
+    new Action('today1', '2020-07-29', 'Free', true),
+    new Action('today2', '2020-07-29', 'Free', false),
+    new Action('today3', '2020-07-29', 'Free', false),
+    new Action('week1', '2020-07-31', 'Family', false),
+    new Action('week2', '2020-08-02', 'Family', true),
+    new Action('week3', '2020-08-03', 'Family', true),
+    new Action('another year', '2021-07-20', 'Work', false),
+    new Action('another year', '2021-07-20', 'Work', false),
+    new Action('another year', '2021-07-20', 'Work', false),
   ];
 
   currentActions = this.copyActions();
@@ -73,10 +79,12 @@ export class ActionsService {
   }
 
   // these are the getters and setters for the selected view variable used by the popover
+  // this returns the view(week, day, all) currently selected by the user
   getSelecView() {
     return this.selectedView;
   }
 
+  // this sets the selected view to a new value inputed into the function
   setSelecView(newVal: string) {
     this.selectedView = newVal;
   }
@@ -98,6 +106,7 @@ export class ActionsService {
     this.currentActions = results;
   }
 
+  // this function sets the currentActions array to the just the days of the current week
   setWeekView() {
     const weekAry = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const week = this.timeService.getWeekRange();
@@ -107,7 +116,7 @@ export class ActionsService {
     this.currentActions = results;
   }
 
-  // creates a deep copy of the actions array
+  // returns a deep copy of the actions array
   copyActions() { // COMPLETE
     const newy: Action [] = [];
     for (const i of this.actions) {
@@ -121,6 +130,14 @@ export class ActionsService {
     }
     return (newy);
   }
+
+  // sorting functions
+
+  // 1 - sort by date funtion
+  srtByDate() {
+    
+  }
+
 
 
 }

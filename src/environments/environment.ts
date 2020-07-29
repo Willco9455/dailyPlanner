@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyCZCQZ4ruZUvJxzrN30P7KgHBjuagAtk98',
+    authDomain: 'daily-planner-a8d75.firebaseapp.com',
+    databaseURL: 'https://daily-planner-a8d75.firebaseio.com',
+    projectId: 'daily-planner-a8d75',
+    storageBucket: 'daily-planner-a8d75.appspot.com',
+    messagingSenderId: '432013082546',
+    appId: '1:432013082546:web:d13324dbaa489efb09eeab',
+    measurementId: 'G-BSJRST9GQM'
+  }
 };
 
 /*

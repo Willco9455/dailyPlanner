@@ -1,34 +1,38 @@
 <ion-header>
   <ion-toolbar color='primary'>
     <ion-title>Actions</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="presentPopover($event)">
-        <ion-icon size='medium' name="swap-vertical-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-toolbar  mode='ios'>
     <ion-segment (ionChange)='dayRefresh()' style="width: 90%;" [(ngModel)]='selected' value="day">
-      
-      <ion-segment-button value="day" layout="icon-start">
-        <ion-icon name="today-outline"></ion-icon>
-        <ion-label>Day</ion-label> 
+
+      <ion-segment-button value="all" layout='icon-start'>
+        <ion-icon name="list-outline"></ion-icon>
+        <ion-label>All</ion-label>
       </ion-segment-button>
       
       <ion-segment-button value="week" layout='icon-start'>
           <ion-icon name="calendar-outline"></ion-icon>
           <ion-label>Week</ion-label>
       </ion-segment-button>
-      
-      <ion-segment-button value="all" layout='icon-start'>
-        <ion-icon name="list-outline"></ion-icon>
-        <ion-label>All</ion-label>
+
+      <ion-segment-button value="day" layout="icon-start">
+        <ion-icon name="today-outline"></ion-icon>
+        <ion-label>Day</ion-label> 
       </ion-segment-button>
       
+      
+      
     </ion-segment>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="presentPopover($event)">
+        <ion-label>Sort</ion-label>
+        <ion-icon size='medium' name="swap-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 
 
