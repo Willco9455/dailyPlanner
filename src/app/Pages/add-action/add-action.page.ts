@@ -65,7 +65,10 @@ export class AddActionPage implements OnInit {
         this.name,
         this.deadConv(this.deadline),
         this.catagory,
-        this.itemEditing.completed));
+        this.itemEditing.completed,
+        this.actionsService.getCatPos(this.catagory)
+      )
+    );
     this.modal.dismiss();
   }
 

@@ -21,6 +21,8 @@ export class ActionsPage implements OnInit {
   edit = false;
   properties: object;
   selected = this.actionsService.getSelecView();
+  srtBy = this.actionsService.getSrt();
+  catagories = this.actionsService.catagories;
 
   constructor(
     private modalCtrl: ModalController,
@@ -34,13 +36,15 @@ export class ActionsPage implements OnInit {
 
   ionViewWillEnter() {
     this.dayRefresh();
-    this.actionsService.srtByDate();
+    this.actionsService.srtByCata();
+    console.log(this.srtBy);
   }
 
   dayRefresh() {
     this.actionsService.setSelecView(this.selected);
     this.actionsService.updateCurrent();
     this.actions = this.actionsService.getActions();
+    this.srtBy = this.actionsService.getSrt();
   }
 
 
@@ -93,6 +97,7 @@ export class ActionsPage implements OnInit {
 
     popover.onDidDismiss().then((dataReturnded) => {
       clearInterval(popOpn);
+      this.srtBy = this.actionsService.getSrt();
     });
 
     return await popover.present();
@@ -122,6 +127,13 @@ export class ActionsPage implements OnInit {
 
   dateToDay(date: string) {
     return this.timeService.dateToDay(date);
+  }
+
+  checkCatFull(cat: string) {
+    const filtered = this.actions.filter(x => {
+      return x.catagory === cat;
+    });
+    return (filtered.length > 0);
   }
 
 

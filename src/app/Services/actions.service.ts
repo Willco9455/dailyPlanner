@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Action } from '../Pages/to-do/item.model';
 import { TimeService } from './time.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActionsService {
 
-  constructor(private timeService: TimeService) { }
+  constructor(private timeService: TimeService, private storageService: StorageService) { }
 
+  actions: Action [];
+ /*
   actions: Action [] = [
-    new Action('today2', '2020-07-29', 'Free', false),
-    new Action('today1', '2020-07-29', 'Free', true),
-    new Action('another year', '2021-07-20', 'Work', false),
-    new Action('week2', '2020-08-02', 'Family', true),
-    new Action('week1', '2020-07-31', 'Family', false),
-    new Action('another year', '2021-07-20', 'Work', false),
-    new Action('today3', '2020-07-29', 'Free', false),
-    new Action('week3', '2020-08-03', 'Family', true),
-    new Action('another year', '2021-07-20', 'Work', false),
-  ];
+    new Action('today2', '2020-07-29', 'Free', false, 2),
+    new Action('today1', '2020-07-29', 'Free', true, 0),
+    new Action('another year', '2021-07-20', 'Work', false, 0),
+    new Action('week2', '2020-08-02', 'Family', true, 0),
+    new Action('week1', '2020-07-31', 'Family', false, 2),
+    new Action('another year', '2021-07-20', 'Work', false, 1),
+    new Action('today3', '2020-07-29', 'Free', false, 1),
+    new Action('week3', '2020-08-03', 'Family', true, 1),
+    new Action('another year', '2021-07-20', 'Work', false, 2),
+  ]; */
 
   currentActions = this.copyActions();
 
@@ -39,7 +42,8 @@ export class ActionsService {
       name: i.name.slice(),
       deadline: i.deadline.slice(),
       catagory: i.catagory.slice(),
-      completed: i.completed
+      completed: i.completed,
+      catPos: i.catPos
     };
     newy.push(adding);
   }
@@ -51,7 +55,23 @@ export class ActionsService {
     return [...this.catagories];
   }
 
+  // returns the how many items there are in a given catagory
+  getCatPos(catagory: string) {
+    let num = 0;
+    for (const i of this.actions) {
+      if (i.catagory === catagory) {
+        num += 1;
+      }
+    }
+    return num;
+  }
+
 //////////////////////////////////////// ** STUFF TO DO WITH THE ACTIONS ARRAY ** /////////////////////////////////////////////////
+
+  // this stores the actions in local storage
+  storeActions() {
+    this.storageService.storeActions();
+  }
 
   // returns the master Actions Variable
   getActions() { // COMPLETE
@@ -60,15 +80,17 @@ export class ActionsService {
 
   // Adds a new actions to possiton 0 in the Array
   addAction(name: string, deadline: string, catagory: string, completed: boolean) {
-    const adding = new Action(name, deadline, catagory, completed);
+    const adding = new Action(name, deadline, catagory, completed, this.getCatPos(catagory));
     this.actions.splice(0, 0, adding);
     this.updateCurrent();
+    this.storeActions();
   }
 
   // Removes the action that is passed into the array
   deleteAction(action: Action) {
     const index = this.actions.findIndex(x => x === action);
     this.actions.splice(index, 1);
+    this.storeActions();
   }
 
   // moves an actions from a posstion to another possiton
@@ -77,6 +99,7 @@ export class ActionsService {
     this.actions.splice(from, 1);
     this.actions.splice(to, 0, action);
     console.log(this.actions);
+    this.storeActions();
   }
 
   // checks if two arrays are equal in values
@@ -98,6 +121,7 @@ export class ActionsService {
     const index = this.actions.findIndex(x => this.checkActEq(x, old));
     this.actions.splice(index, 1, neww);
     this.updateCurrent();
+    this.storeActions();
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,6 +150,8 @@ export class ActionsService {
 
     if (this.srtBy === 'date') {
       this.srtByDate();
+    } else if (this.srtBy === 'catagory') {
+      this.srtByCata();
     }
   }
 
@@ -193,12 +219,51 @@ export class ActionsService {
         name: this.currentActions[oldIndex].name.slice(),
         deadline: this.currentActions[oldIndex].deadline.slice(),
         catagory: this.currentActions[oldIndex].catagory.slice(),
-        completed: this.currentActions[oldIndex].completed
+        completed: this.currentActions[oldIndex].completed,
+        catPos: this.currentActions[oldIndex].catPos
       };
       newCurentActions.splice(newIndex, 0, adding);
     }
     this.currentActions = newCurentActions;
   }
+
+  srtByCata() {
+    const newAry: [ Action []] = [null];
+
+    // This section splits the catagories into seperate arrays
+    for (const i of this.catagories) {
+      const filtered = this.currentActions.filter( x => {
+        return x.catagory === i;
+      });
+      newAry.push(filtered);
+    }
+    newAry.splice(0, 1);
+
+
+    // This section orderes each catagory array
+    for (const i of newAry) {
+      newAry[newAry.indexOf(i)].sort((a, b) => { // sorts the array fro low to high
+        if (a.catPos < b.catPos) {
+          return -1;
+        } else if (a.catPos > b.catPos) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    // This section creates the new array fully ordered and replaces the currentActions with it
+    const replacingAry: Action [] = [];
+    for (const x of newAry) {
+      for (const y of x) {
+        replacingAry.push(y);
+      }
+    }
+    this.currentActions = replacingAry;
+
+  }
+
 
 
 }

@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TimeService } from './Services/time.service';
+import { StorageService } from './Services/storage.service';
 
 
 @Component({
@@ -17,8 +18,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private timeService: TimeService
-
+    private timeService: TimeService,
+    private storageService: StorageService
   ) {
     this.initializeApp();
   }
@@ -29,6 +30,7 @@ export class AppComponent {
       this.splashScreen.hide();
     });
     this.timeService.startTimer();
+    this.storageService.fetchActions();
   }
 
 }
