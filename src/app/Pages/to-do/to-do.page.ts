@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DayService } from '../../Services/day.service';
+import { StorageService } from 'src/app/Services/storage.service';
 
 @Component({
   selector: 'app-to-do',
@@ -8,13 +9,13 @@ import { DayService } from '../../Services/day.service';
 })
 export class ToDoPage implements OnInit {
 
-  constructor(private dayService: DayService) { }
+  constructor(private storageService: StorageService) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-
+    this.storageService.fetchActions();
   }
 
 

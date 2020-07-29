@@ -19,7 +19,6 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private timeService: TimeService,
-    private storageService: StorageService
   ) {
     this.initializeApp();
   }
@@ -30,7 +29,6 @@ export class AppComponent {
       this.splashScreen.hide();
     });
     this.timeService.startTimer();
-    this.storageService.fetchActions();
   }
 
 }

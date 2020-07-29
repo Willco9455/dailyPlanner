@@ -25,4 +25,5 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
