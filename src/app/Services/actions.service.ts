@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '../Pages/to-do/item.model';
 import { TimeService } from './time.service';
 import { StorageService } from './storage.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class ActionsService {
 
   constructor(private timeService: TimeService, private storageService: StorageService) { }
 
-  actions: Action [];
- /*
+  // LOCAL STORAGE
+  // actions: Action [] = [];
   actions: Action [] = [
     new Action('today2', '2020-07-29', 'Free', false, 2),
     new Action('today1', '2020-07-29', 'Free', true, 0),
@@ -22,8 +23,7 @@ export class ActionsService {
     new Action('today3', '2020-07-29', 'Free', false, 1),
     new Action('week3', '2020-08-03', 'Family', true, 1),
     new Action('another year', '2021-07-20', 'Work', false, 2),
-  ]; */
-
+  ];
   currentActions = this.copyActions();
 
   catagories = ['None', 'Work', 'Free', 'Family'];
@@ -36,19 +36,19 @@ export class ActionsService {
 
    // returns a deep copy of the actions array
   copyActions() { // COMPLETE
-  const newy: Action [] = [];
-  for (const i of this.actions) {
-    const adding: Action = {
-      name: i.name.slice(),
-      deadline: i.deadline.slice(),
-      catagory: i.catagory.slice(),
-      completed: i.completed,
-      catPos: i.catPos
-    };
-    newy.push(adding);
-  }
-  return (newy);
-  }
+    const newy: Action [] = [];
+    for (const i of this.actions) {
+      const adding: Action = {
+        name: i.name.slice(),
+        deadline: i.deadline.slice(),
+        catagory: i.catagory.slice(),
+        completed: i.completed,
+        catPos: i.catPos
+      };
+      newy.push(adding);
+    }
+    return (newy);
+    }
 
   // returns the current catagories
   getCata() { // COMPLETE
@@ -68,10 +68,15 @@ export class ActionsService {
 
 //////////////////////////////////////// ** STUFF TO DO WITH THE ACTIONS ARRAY ** /////////////////////////////////////////////////
 
-  // this stores the actions in local storage
-  storeActions() {
-    this.storageService.storeActions();
-  }
+  // LOCAL STORAGE
+  // storeActions() {
+  //   this.storageService.storeData(this.actions);
+  // }
+
+  // LOCAL STORAGE
+  // fetchActions() {
+  //   this.storageService.retriveData().then((data: Action []) => {this.actions = data; console.log('actions fetched', data); });
+  // }
 
   // returns the master Actions Variable
   getActions() { // COMPLETE
@@ -83,14 +88,16 @@ export class ActionsService {
     const adding = new Action(name, deadline, catagory, completed, this.getCatPos(catagory));
     this.actions.splice(0, 0, adding);
     this.updateCurrent();
-    this.storeActions();
+    // LOCAL STORAGE
+    // this.storeActions();
   }
 
   // Removes the action that is passed into the array
   deleteAction(action: Action) {
     const index = this.actions.findIndex(x => x === action);
     this.actions.splice(index, 1);
-    this.storeActions();
+    // LOCAL STORAGE
+    // this.storeActions();
   }
 
   // moves an actions from a posstion to another possiton
@@ -98,8 +105,9 @@ export class ActionsService {
     const action = this.actions[from];
     this.actions.splice(from, 1);
     this.actions.splice(to, 0, action);
+    // LOCAL STORAGE
+    // this.storeActions();
     console.log(this.actions);
-    this.storeActions();
   }
 
   // checks if two arrays are equal in values
@@ -121,7 +129,8 @@ export class ActionsService {
     const index = this.actions.findIndex(x => this.checkActEq(x, old));
     this.actions.splice(index, 1, neww);
     this.updateCurrent();
-    this.storeActions();
+    // LOCAL STORAGE
+    // this.storeActions();
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

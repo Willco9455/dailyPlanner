@@ -6,7 +6,6 @@ import { AddActionPage } from '../../add-action/add-action.page';
 import { ActionsService } from 'src/app/Services/actions.service';
 import { PopOverPage } from '../../pop-over/pop-over.page';
 import { TimeService } from 'src/app/Services/time.service';
-import { StorageService } from 'src/app/Services/storage.service';
 import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 
@@ -37,7 +36,6 @@ export class ActionsPage implements OnInit {
   ionViewWillEnter() {
     this.dayRefresh();
     this.actionsService.srtByCata();
-    console.log(this.srtBy);
   }
 
   dayRefresh() {

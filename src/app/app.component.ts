@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, PlatformRef } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TimeService } from './Services/time.service';
-import { StorageService } from './Services/storage.service';
+import { ActionsService } from './Services/actions.service';
+
 
 
 @Component({
@@ -19,6 +20,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private timeService: TimeService,
+    private actionsService: ActionsService
   ) {
     this.initializeApp();
   }
@@ -29,6 +31,10 @@ export class AppComponent {
       this.splashScreen.hide();
     });
     this.timeService.startTimer();
+    this.platform.ready().then(() => {
+      // LOCAL STORAGE
+      // this.actionsService.fetchActions();
+    });
   }
 
 }

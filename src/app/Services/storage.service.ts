@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Action } from '../Pages/to-do/item.model';
 import { ActionsService } from './actions.service';
 
 
@@ -9,42 +10,19 @@ import { ActionsService } from './actions.service';
 })
 export class StorageService {
 
-  constructor(private nativeStorage: NativeStorage, private actionsService: ActionsService) { }
+  constructor(private nativeStorage: NativeStorage) { }
 
-  storeData(storing: object) {
+  storeData(storing: any ) {
     this.nativeStorage.setItem('stored', storing)
     .then(
-      () => console.log('Stored item!'),
+      () => console.log('Stored item!', storing),
       error => console.error('Error storing item', error)
     );
   }
 
   retriveData() {
-    this.nativeStorage.getItem('stored')
-      .then(
-        data => console.log(data),
-        error => console.error(error)
-      );
+    return this.nativeStorage.getItem('stored');
   }
-
-  storeActions() {
-    this.nativeStorage.setItem('actions', this.actionsService.actions)
-    .then(
-      () => console.log('Stored item!'),
-      error => console.error('Error storing item', error)
-    );
-  }
-
-  fetchActions() {
-    this.nativeStorage.getItem('actions')
-      .then(
-        data => this.actionsService.actions = data,
-        error => console.error(error)
-      );
-
-  }
-
-
 
 
 
