@@ -154,4 +154,12 @@ export class TimeService {
     return(day);
   }
 
+  dateToDisplay(date: string) {
+    // date in fromat 2020-08-17
+    console.log('date chosen', date);
+    const jvDate: Date = new Date(date);
+    date = jvDate.toLocaleDateString(undefined, { weekday: 'long' });
+    console.log('new date', date);
+  }
+
 }

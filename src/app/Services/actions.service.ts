@@ -14,14 +14,14 @@ export class ActionsService {
   // LOCAL STORAGE
   // actions: Action [] = [];
   actions: Action [] = [
-    new Action('today2', '2020-07-29', 'Free', false, 2),
-    new Action('today1', '2020-07-29', 'Free', true, 0),
+    new Action('today2', '2020-08-05', 'Free', false, 2),
+    new Action('today1', '2020-08-05', 'Free', true, 0),
     new Action('another year', '2021-07-20', 'Work', false, 0),
-    new Action('week2', '2020-08-02', 'Family', true, 0),
-    new Action('week1', '2020-07-31', 'Family', false, 2),
+    new Action('week2', '2020-08-07', 'Family', true, 0),
+    new Action('week1', '2020-08-06', 'Family', false, 2),
     new Action('another year', '2021-07-20', 'Work', false, 1),
-    new Action('today3', '2020-07-29', 'Free', false, 1),
-    new Action('week3', '2020-08-03', 'Family', true, 1),
+    new Action('today3', '2020-08-05', 'Free', false, 1),
+    new Action('week3', '2020-08-08', 'Family', true, 1),
     new Action('another year', '2021-07-20', 'Work', false, 2),
   ];
   currentActions = this.copyActions();

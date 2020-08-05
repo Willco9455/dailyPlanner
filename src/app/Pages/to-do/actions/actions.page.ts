@@ -36,6 +36,8 @@ export class ActionsPage implements OnInit {
   ionViewWillEnter() {
     this.dayRefresh();
     this.actionsService.srtByCata();
+    // for testing new fucntion
+    this.timeService.dateToDisplay('2021-12-12');
   }
 
   dayRefresh() {
