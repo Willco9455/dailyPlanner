@@ -21,16 +21,12 @@
   </ion-list>
 
 
-
-  <ion-grid>
-
-    <!-- this row is displayed if adding varibale is false, displays add button but nothing else-->
-    <ion-row>
-      <ion-col size='auto'>
-        <ion-button (click)="showModal()" size="medium" id="addButton">
-          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    </ion-grid>
+  <!--This creates a square so that the button does not cover important infomation-->
+  <div style="height: 80px"></div>
+  <!--Button to add a new action-->
+  <ion-fab (click)="showModal()" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

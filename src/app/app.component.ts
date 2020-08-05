@@ -30,7 +30,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    this.timeService.startTimer();
     this.platform.ready().then(() => {
       // LOCAL STORAGE
       // this.actionsService.fetchActions();

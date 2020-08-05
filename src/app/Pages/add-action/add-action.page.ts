@@ -73,11 +73,12 @@ export class AddActionPage implements OnInit {
   }
 
   validate() {
-    if (this.name.length === 0) {
-      this.butonDis = true;
-    } else {
+    if (this.name.length !== 0 && this.deadline !== undefined) {
       this.butonDis = false;
+    } else {
+      this.butonDis = true;
     }
+
   }
 
 }

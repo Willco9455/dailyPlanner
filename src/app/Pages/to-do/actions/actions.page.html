@@ -11,27 +11,27 @@
   <ion-toolbar mode='ios'>
     <ion-segment (ionChange)='dayRefresh()' style="width: 90%;" [(ngModel)]='selected' value="day">
 
-      <ion-segment-button value="all" layout='icon-start'>
-        <ion-icon name="list-outline"></ion-icon>
-        <ion-label>All</ion-label>
-      </ion-segment-button>
-      
-      <ion-segment-button value="week" layout='icon-start'>
-          <ion-icon name="calendar-outline"></ion-icon>
-          <ion-label>Week</ion-label>
-      </ion-segment-button>
-
       <ion-segment-button value="day" layout="icon-start">
         <ion-icon name="today-outline"></ion-icon>
         <ion-label>Day</ion-label> 
+      </ion-segment-button>
+
+      <ion-segment-button value="week" layout='icon-start'>
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>Week</ion-label>
+      </ion-segment-button>
+      
+      <ion-segment-button value="all" layout='icon-start'>
+        <ion-icon name="list-outline"></ion-icon>
+        <ion-label>All</ion-label>
       </ion-segment-button>
       
     </ion-segment>
 
     <ion-buttons slot="end">
       <ion-button (click)="presentPopover($event)">
-        <ion-label>Sort</ion-label>
-        <ion-icon size='medium' name="swap-vertical-outline"></ion-icon>
+        <!--<ion-label>Sort</ion-label>-->
+        <ion-icon background='primary' size='medium' name="swap-vertical-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -45,8 +45,7 @@
           <ion-label>
             <h6>{{action.name}}</h6>
             <p>Catagory - {{action.catagory}}</p>
-            <p *ngIf="selected === 'week'">Deadline - {{this.dateToDay(action.deadline)}}</p>
-            <p *ngIf="selected !== 'week'">Deadline - {{action.deadline}}</p>
+            <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
           </ion-label>
           <ion-icon name="reorder-three-outline"></ion-icon>
         </ion-item>
@@ -58,8 +57,7 @@
             <ion-label>
               <h6>{{action.name}}</h6>
               <p>Catagory - {{action.catagory}}</p>
-              <p *ngIf="selected === 'week'">Deadline - {{this.dateToDay(action.deadline)}}</p>
-              <p *ngIf="selected !== 'week'">Deadline - {{action.deadline}}</p>
+              <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
             </ion-label>
   
             <ion-checkbox slot="end" [(ngModel)]="action.completed"></ion-checkbox>
@@ -81,42 +79,48 @@
   </ion-reorder-group>
 
   <ng-template #mainElse>
-    <ion-list *ngFor="let cat of this.catagories">
-      <ion-list-header *ngIf="checkCatFull(cat)">
-        <ion-label> {{ cat }} </ion-label>
-      </ion-list-header>
+    <div *ngFor="let cat of this.catagories">
 
-      <div *ngFor="let action of actions">
-        <ion-item-sliding *ngIf="action.catagory === cat">
-          <ion-item lines='full' class="action">
-            <ion-label>
-              <h6>{{action.name}}</h6>
-              <p *ngIf="selected === 'week'">Deadline - {{this.dateToDay(action.deadline)}}</p>
-              <p *ngIf="selected !== 'week'">Deadline - {{action.deadline}}</p>
-            </ion-label>
-  
-            <ion-checkbox slot="end" [(ngModel)]="action.completed"></ion-checkbox>
-          </ion-item>
-  
-          <ion-item-options>
-            <ion-item-option (click)='showModal(action)' color="secondary">
-              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-            </ion-item-option>
+      <ion-list *ngIf="checkCatFull(cat)">
 
-            <ion-item-option (click)='deleteAction(action)' color="danger">
-              <ion-icon slot="icon-only" name="trash"></ion-icon>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </div>
+        <ion-list-header>
+          <ion-label>{{ cat }}</ion-label>
+        </ion-list-header>
+        
+        <div *ngFor="let action of actions">
+          <ion-item-sliding *ngIf="action.catagory === cat">
+
+            <ion-item lines='full' class="action">
+              <ion-label>
+                <h6>{{action.name}}</h6>
+                <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
+              </ion-label>
   
-    </ion-list>
+              <ion-checkbox slot="end" [(ngModel)]="action.completed"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item-options>
+              <ion-item-option (click)='showModal(action)' color="secondary">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-item-option>
+              
+              <ion-item-option (click)='deleteAction(action)' color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+
+          </ion-item-sliding>
+        </div>
+
+      </ion-list>
+
+    </div>
+    </ng-template>
+
     
-  </ng-template>
-
- 
-
-
+  <!--This creates a square so that the button does not cover important infomation-->
+  <div style="height: 80px"></div>
+  <!--Button to add a new action-->
   <ion-fab (click)='showModal("new")' vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>

@@ -1,5 +1,6 @@
 import { Injectable, ɵCompiler_compileModuleAndAllComponentsSync__POST_R3__ } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -154,12 +155,15 @@ export class TimeService {
     return(day);
   }
 
+  // turn string date into the date that should be displayed
   dateToDisplay(date: string) {
-    // date in fromat 2020-08-17
-    console.log('date chosen', date);
     const jvDate: Date = new Date(date);
-    date = jvDate.toLocaleDateString(undefined, { weekday: 'long' });
-    console.log('new date', date);
+    const week = this.getWeekRange();
+    if (week.includes(date)) {
+      return (jvDate.toLocaleDateString(undefined, { weekday: 'long' }));
+    } else {
+      return (jvDate.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }));
+    }
   }
 
 }
