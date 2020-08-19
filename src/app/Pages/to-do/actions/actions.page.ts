@@ -17,11 +17,13 @@ import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 export class ActionsPage implements OnInit {
 
   actions: Action [];
-  edit = false;
   properties: object;
   selected = this.actionsService.getSelecView();
-  srtBy = this.actionsService.getSrt();
+  srtBy: string;
   catagories = this.actionsService.catagories;
+
+  edit = false;
+  reorderCat: boolean[] = [];
 
   constructor(
     private modalCtrl: ModalController,
@@ -31,21 +33,28 @@ export class ActionsPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.dayRefresh();
+
+  // creates the reorderCat array full of falses for how many catagories there are used to reorder catagories
+    for (let i = 0; i < this.catagories.length; i++) {
+      this.reorderCat[i] = false;
+    }
   }
 
   ionViewWillEnter() {
     this.dayRefresh();
-    this.actionsService.srtByCata();
   }
 
+  // essentioally resfreshes the page
   dayRefresh() {
     this.actionsService.setSelecView(this.selected);
+    this.srtBy = this.actionsService.getSrt();
     this.actionsService.updateCurrent();
     this.actions = this.actionsService.getActions();
-    this.srtBy = this.actionsService.getSrt();
   }
 
 
+  // the code to pop up the add modal when the add button is pressed
   async showModal(passed: any) {
     // this if else sets the data before going into the modal depending on if it is an edit or not
     if (passed === 'new') {
@@ -80,6 +89,7 @@ export class ActionsPage implements OnInit {
     return await modal.present();
   }
 
+  // code to show the popover to select how you want to sort the actions
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
       component: PopOverPage,
@@ -101,8 +111,8 @@ export class ActionsPage implements OnInit {
     return await popover.present();
   }
 
+  // function that deleltes the action you pass in from thw the actions array
   deleteAction(action: Action ) {
-    console.log(this.actions);
     this.actionsService.deleteAction(action);
     this.dayRefresh();
   }
@@ -123,6 +133,35 @@ export class ActionsPage implements OnInit {
     console.log(this.edit);
   }
 
+//////////////// THIS STUFF IS FOR REORDING AND PRIORITSING WHEN IN THE CATAGORY VIEW ////////////////////////////
+
+  // runs when the reorder button is pressed for a catagory
+  reorderCatFun(cata: string) {
+    const pos = this.catagories.indexOf(cata);
+    this.reorderCat[pos] = !this.reorderCat[pos];
+  }
+
+  // checks wehter the catagory should be in the reorder state or not
+  checkRe(cata: string) {
+    const pos = this.catagories.indexOf(cata);
+    return this.reorderCat[pos];
+  }
+
+
+  moveCatPos(cata: string, ev: any) {
+    // The `from` and `to` properties contain the index of the item
+    // when the drag started and ended, respectively
+
+    this.actionsService.moveCatagory(cata, ev.detail.from, ev.detail.to);
+
+    // Finish the reorder and position the item in the DOM based on
+    // where the gesture ended. This method can also be called directly
+    // by the reorder group
+    ev.detail.complete();
+    this.dayRefresh();
+  }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   dateToDay(date: string) {
     return this.timeService.dateToDay(date);
   }
@@ -137,6 +176,5 @@ export class ActionsPage implements OnInit {
   dateToDisplay(date: string) {
     return (this.timeService.dateToDisplay(date));
   }
-
 
 }

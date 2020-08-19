@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { Action } from '../Pages/to-do/item.model';
 import { TimeService } from './time.service';
 import { StorageService } from './storage.service';
-import { ThrowStmt } from '@angular/compiler';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,22 +15,22 @@ export class ActionsService {
   // LOCAL STORAGE
   // actions: Action [] = [];
   actions: Action [] = [
-    new Action('today2', '2020-08-05', 'Free', false, 2),
-    new Action('today1', '2020-08-05', 'Free', true, 0),
+    new Action('today2', '2020-08-19', 'Free', false, 2),
+    new Action('today1', '2020-08-19', 'Free', true, 0),
     new Action('another year', '2021-07-20', 'Work', false, 0),
-    new Action('week2', '2020-08-07', 'Family', true, 0),
-    new Action('week1', '2020-08-06', 'Family', false, 2),
+    new Action('week2', '2020-08-20', 'Family', true, 0),
+    new Action('week1', '2020-08-22', 'Family', false, 2),
     new Action('another year', '2021-07-20', 'Work', false, 1),
-    new Action('today3', '2020-08-05', 'Free', false, 1),
-    new Action('week3', '2020-08-08', 'Family', true, 1),
+    new Action('today3', '2020-08-19', 'Free', false, 1),
+    new Action('week3', '2020-08-23', 'Family', true, 1),
     new Action('another year', '2021-07-20', 'Work', false, 2),
   ];
   currentActions = this.copyActions();
 
   catagories = ['None', 'Work', 'Free', 'Family'];
 
-  selectedView = 'all';
-  srtBy = 'date';
+  selectedView = 'week';
+  srtBy = 'catagory';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // general helpful functions
@@ -178,6 +179,31 @@ export class ActionsService {
       week.includes(x.deadline)
     );
     this.currentActions = results;
+  }
+
+  // this function changes items possitions within a catagory
+  moveCatagory(cata: string, from: number, too: number) {
+    const posAry = [];
+    const ordered = [];
+    for (const i of this.actions) {
+      if (i.catagory === cata) {
+        posAry.push(i.catPos);
+      }
+    }
+    // created the ordered array
+    for (let i = 0; i < posAry.length; i++) {
+      ordered.push(i);
+    }
+
+    // this part creates the new order and assigns it to the curent list of actions
+    ordered.splice(from, 1);
+    ordered.splice(too, 0, from);
+    for (const i of this.actions) {
+      if (i.catagory === cata) {
+        const newPos = ordered.indexOf(i.catPos);
+        this.actions[this.actions.indexOf(i)].catPos = newPos;
+      }
+    }
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

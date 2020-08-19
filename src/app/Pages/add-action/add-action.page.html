@@ -26,7 +26,7 @@
 
     <ion-item>
       <ion-label >Deadline</ion-label>
-        <ion-datetime [(ngModel)]='deadline' displayFormat="DDDD DD-MM-YYYY" pickerFormat="DDDD DD MM YYYY" [min]='date' max='2077' placeholder="None"></ion-datetime>
+        <ion-datetime [(ngModel)]='deadline' (ionChange)='validate()' displayFormat="DDDD DD-MM-YYYY" pickerFormat="DDDD DD MM YYYY" [min]='date' max='2077' placeholder="None"></ion-datetime>
     </ion-item>
 
     <ion-item>
