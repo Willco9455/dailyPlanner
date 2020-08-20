@@ -32,7 +32,7 @@ export class AppComponent {
     });
     this.platform.ready().then(() => {
       // LOCAL STORAGE
-      this.actionsService.fetchActions();
+      // this.actionsService.fetchActions();
     });
   }
 
