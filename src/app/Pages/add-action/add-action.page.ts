@@ -42,6 +42,7 @@ export class AddActionPage implements OnInit {
     this.selected = inf.detail.value;
   }
 
+  // triggered when saving a new action
   addAct() {
     if (this.deadline !== undefined) {
       this.deadline = this.deadConv(this.deadline);
@@ -52,12 +53,14 @@ export class AddActionPage implements OnInit {
     this.modal.dismiss();
   }
 
+  // converts deadline
   deadConv(ion: string) {
     ion = ion.split('T')[0];
     console.log(ion);
     return ion;
   }
 
+  // triggered when decided to edit the action when in edditing mode
   update() {
     this.actionsService.updateAction(
       this.itemEditing,
@@ -66,12 +69,13 @@ export class AddActionPage implements OnInit {
         this.deadConv(this.deadline),
         this.catagory,
         this.itemEditing.completed,
-        this.actionsService.getCatPos(this.catagory)
+        this.itemEditing.catPos
       )
     );
     this.modal.dismiss();
   }
 
+  // triggered when adding a new action 
   validate() {
     if (this.name.length !== 0 && this.deadline !== undefined) {
       this.butonDis = false;

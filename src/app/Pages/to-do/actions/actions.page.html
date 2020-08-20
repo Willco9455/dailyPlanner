@@ -39,7 +39,7 @@
 <!-- THIS PART IS SHOWN WHEN NOT SORTING BY CATAGORY -->
   <ion-reorder-group *ngIf="this.srtBy !== 'catagory'; else mainElse" (ionItemReorder)='doReorder($event)' [disabled]='!edit'>
     <div *ngFor="let action of actions">
-        <!-- this section is if the the user has selected to edit the order of there actions-->
+      <!-- this section is if the the user has selected to edit the order of there actions-->
       <ion-reorder *ngIf="edit === true; else elseBlock">
         <ion-item>
           <ion-label>
@@ -82,6 +82,7 @@
   <ng-template #mainElse>
     <div *ngFor="let cat of this.catagories">
 
+
       <ion-list *ngIf="checkCatFull(cat)">
         
         <ion-list-header>
@@ -91,19 +92,18 @@
 
           
         <ion-reorder-group (ionItemReorder)='moveCatPos(cat, $event)' [disabled]='!checkRe(cat)'>
-          <div *ngFor="let action of actions">
-            <div *ngIf="action.catagory === cat">
-              <ion-reorder *ngIf="checkRe(cat); else notReorder">
-                <ion-item >
-                  <ion-label>
-                    <h6>{{action.name}}</h6>
-                    <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
-                  </ion-label>
-                  <ion-icon name="reorder-three-outline"></ion-icon>
-                </ion-item>
-              </ion-reorder>
-            </div>
-          
+          <div *ngFor="let action of getCatActions(cat)">
+
+            <ion-reorder *ngIf="checkRe(cat); else notReorder">
+              <ion-item >
+                <ion-label>
+                  <h6>{{action.name}}</h6>
+                  <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
+                </ion-label>
+                <ion-icon name="reorder-three-outline"></ion-icon>
+              </ion-item>
+            </ion-reorder>
+            
             
             <ng-template #notReorder>
               <ion-item-sliding *ngIf="action.catagory === cat">
@@ -134,7 +134,7 @@
       </ion-list>
 
     </div>
-    </ng-template>
+  </ng-template>
 
     
   <!--This creates a square so that the button does not cover important infomation-->

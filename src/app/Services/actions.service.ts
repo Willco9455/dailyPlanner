@@ -25,7 +25,7 @@ export class ActionsService {
     new Action('week3', '2020-08-23', 'Family', true, 1),
     new Action('another year', '2021-07-20', 'Work', false, 2),
   ];
-  currentActions = this.copyActions();
+  currentActions: any = this.copyActions();
 
   catagories = ['None', 'Work', 'Free', 'Family'];
 
@@ -275,6 +275,7 @@ export class ActionsService {
     newAry.splice(0, 1);
 
 
+
     // This section orderes each catagory array
     for (const i of newAry) {
       newAry[newAry.indexOf(i)].sort((a, b) => { // sorts the array fro low to high
@@ -295,7 +296,9 @@ export class ActionsService {
         replacingAry.push(y);
       }
     }
+
     this.currentActions = replacingAry;
+    return(newAry);
 
   }
 

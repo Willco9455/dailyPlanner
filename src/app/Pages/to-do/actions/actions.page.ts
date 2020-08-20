@@ -21,6 +21,7 @@ export class ActionsPage implements OnInit {
   selected = this.actionsService.getSelecView();
   srtBy: string;
   catagories = this.actionsService.catagories;
+  catagorySplit: Action [] [];
 
   edit = false;
   reorderCat: boolean[] = [];
@@ -51,6 +52,10 @@ export class ActionsPage implements OnInit {
     this.srtBy = this.actionsService.getSrt();
     this.actionsService.updateCurrent();
     this.actions = this.actionsService.getActions();
+    // if viewing by catgory it feteches the array of actions split up
+    if (this.srtBy === 'catagory') {
+      this.catagorySplit = this.actionsService.srtByCata();
+    }
   }
 
 
@@ -147,7 +152,7 @@ export class ActionsPage implements OnInit {
     return this.reorderCat[pos];
   }
 
-
+  // triggered when a action in a catagory is moved
   moveCatPos(cata: string, ev: any) {
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
@@ -160,18 +165,25 @@ export class ActionsPage implements OnInit {
     ev.detail.complete();
     this.dayRefresh();
   }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  dateToDay(date: string) {
-    return this.timeService.dateToDay(date);
-  }
-
+  // returns wether a catagory is empty
   checkCatFull(cat: string) {
     const filtered = this.actions.filter(x => {
       return x.catagory === cat;
     });
     return (filtered.length > 0);
   }
+
+  // returns an array of just the actions in the one catagory
+  getCatActions(cat: string) {
+    return (this.catagorySplit[this.catagories.indexOf(cat)]);
+  }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  dateToDay(date: string) {
+    return this.timeService.dateToDay(date);
+  }
+
 
   dateToDisplay(date: string) {
     return (this.timeService.dateToDisplay(date));

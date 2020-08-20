@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'pop-over',
     loadChildren: () => import('./Pages/pop-over/pop-over.module').then( m => m.PopOverPageModule)
   },
+  {
+    path: 'test-page',
+    loadChildren: () => import('./Pages/test-page/test-page.module').then( m => m.TESTPAGEPageModule)
+  },
 ];
 
 @NgModule({
