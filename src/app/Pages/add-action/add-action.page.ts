@@ -75,7 +75,7 @@ export class AddActionPage implements OnInit {
     this.modal.dismiss();
   }
 
-  // triggered when adding a new action 
+  // triggered when adding a new action
   validate() {
     if (this.name.length !== 0 && this.deadline !== undefined) {
       this.butonDis = false;
