@@ -36,7 +36,7 @@ export class ActionsPage implements OnInit {
   ngOnInit() {
     this.dayRefresh();
 
-  // creates the reorderCat array full of falses for how many catagories there are used to reorder catagories
+    // creates the reorderCat array full of falses for how many catagories there are used to reorder catagories
     for (let i = 0; i < this.catagories.length; i++) {
       this.reorderCat[i] = false;
     }
@@ -56,6 +56,7 @@ export class ActionsPage implements OnInit {
     if (this.srtBy === 'catagory') {
       this.catagorySplit = this.actionsService.srtByCata();
     }
+    console.log('dayrefresh ran');
   }
 
 
@@ -184,9 +185,37 @@ export class ActionsPage implements OnInit {
     return this.timeService.dateToDay(date);
   }
 
-
   dateToDisplay(date: string) {
     return (this.timeService.dateToDisplay(date));
   }
 
+  checkFirstDate(action: Action) {
+    const pos = this.actions.findIndex(x => this.actionsService.checkActEq(x, action));
+    if (pos === 0) {
+      return true;
+    }
+    if (action.deadline === this.actions[pos - 1].deadline) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // triggered when user checks an action off
+  checked(action: Action) {
+    // updates the old action only changes the completed
+    console.log('action edditing', action);
+
+    this.actionsService.updateAction(
+      action,
+      new Action(
+        action.name,
+        action.deadline,
+        action.catagory,
+        !action.completed,
+        action.catPos
+      )
+    );
+    const sleep = window.setTimeout(() => this.dayRefresh(), 500);
+  }
 }

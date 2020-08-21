@@ -22,3 +22,14 @@ ion-list-header{
     font-size: larger;
 }
 
+.dateHeader{
+    width: 110%;
+    height: auto;
+    color: black;
+    background-color: #E8E8E8;
+    padding: 6px 6px 6px 15px;
+    span{
+        font-weight: bold;
+    }
+}
+

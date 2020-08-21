@@ -39,6 +39,12 @@
 <!-- THIS PART IS SHOWN WHEN NOT SORTING BY CATAGORY -->
   <ion-reorder-group *ngIf="this.srtBy !== 'catagory'; else mainElse" (ionItemReorder)='doReorder($event)' [disabled]='!edit'>
     <div *ngFor="let action of actions">
+
+      <!--This part runs when ordering by date and it puts a header for each new date-->
+      <div class="dateHeader" *ngIf="this.srtBy === 'date' && checkFirstDate(action)">
+        <span>{{this.dateToDisplay(action.deadline)}}</span>
+      </div>
+
       <!-- this section is if the the user has selected to edit the order of there actions-->
       <ion-reorder *ngIf="edit === true; else elseBlock">
         <ion-item>
@@ -60,7 +66,7 @@
               <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
             </ion-label>
   
-            <ion-checkbox slot="end" [(ngModel)]="action.completed"></ion-checkbox>
+            <ion-checkbox slot="end" [checked]='action.completed' (ionChange)='checked(action)'></ion-checkbox>
           </ion-item>
   
           <ion-item-options>
@@ -113,7 +119,7 @@
                     <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
                   </ion-label>
                   
-                  <ion-checkbox slot="end" [(ngModel)]="action.completed"></ion-checkbox>
+                  <ion-checkbox slot="end" (ionChange)='checked(action)' [checked]="action.completed"></ion-checkbox>
                 </ion-item>
                 
                 <ion-item-options>

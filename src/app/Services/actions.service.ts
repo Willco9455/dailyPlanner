@@ -30,7 +30,7 @@ export class ActionsService {
   catagories = ['None', 'Work', 'Free', 'Family'];
 
   selectedView = 'week';
-  srtBy = 'catagory';
+  srtBy = 'date';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // general helpful functions
@@ -132,6 +132,7 @@ export class ActionsService {
     const index = this.actions.findIndex(x => this.checkActEq(x, old));
     this.actions.splice(index, 1, neww);
     this.updateCurrent();
+    console.log('current sate of actions', this.actions);
     // LOCAL STORAGE
     // this.storeActions();
   }
