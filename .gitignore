@@ -1,7 +1,6 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
-
 *~
 *.sw[mnpcod]
 .tmp
@@ -30,4 +29,7 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 7bee982... changes
