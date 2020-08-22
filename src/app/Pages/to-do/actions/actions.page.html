@@ -59,7 +59,7 @@
 
       <ng-template #elseBlock>
         <ion-item-sliding>
-          <ion-item lines='full' class="action">
+          <ion-item [disabled]='actionsDisabled' lines='full' class="action">
             <ion-label>
               <h6>{{action.name}}</h6>
               <p>Catagory - {{action.catagory}}</p>
@@ -112,14 +112,14 @@
             
             
             <ng-template #notReorder>
-              <ion-item-sliding *ngIf="action.catagory === cat">
-                <ion-item lines='full' class="action">
+              <ion-item-sliding  *ngIf="action.catagory === cat">
+                <ion-item [disabled]='actionsDisabled' lines='full' class="action">
                   <ion-label>
                     <h6>{{action.name}}</h6>
                     <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
                   </ion-label>
                   
-                  <ion-checkbox slot="end" (ionChange)='checked(action)' [checked]="action.completed"></ion-checkbox>
+                  <ion-checkbox  slot="end" (ionChange)='checked(action)' [checked]="action.completed"></ion-checkbox>
                 </ion-item>
                 
                 <ion-item-options>

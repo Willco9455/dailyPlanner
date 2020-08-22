@@ -26,6 +26,8 @@ export class ActionsPage implements OnInit {
   edit = false;
   reorderCat: boolean[] = [];
 
+  actionsDisabled = false;
+
   constructor(
     private modalCtrl: ModalController,
     private actionsService: ActionsService,
@@ -216,6 +218,7 @@ export class ActionsPage implements OnInit {
         action.catPos
       )
     );
-    const sleep = window.setTimeout(() => this.dayRefresh(), 500);
+    const sleep = window.setTimeout(() => {this.dayRefresh(); this.actionsDisabled = false; }, 400);
+    this.actionsDisabled = true;
   }
 }

@@ -15,13 +15,13 @@ export class ActionsService {
   // LOCAL STORAGE
   // actions: Action [] = [];
   actions: Action [] = [
-    new Action('today2', '2020-08-19', 'Free', false, 2),
-    new Action('today1', '2020-08-19', 'Free', true, 0),
+    new Action('today2', '2020-08220', 'Free', false, 2),
+    new Action('today1', '2020-08-22', 'Free', true, 0),
     new Action('another year', '2021-07-20', 'Work', false, 0),
     new Action('week2', '2020-08-20', 'Family', true, 0),
     new Action('week1', '2020-08-22', 'Family', false, 2),
     new Action('another year', '2021-07-20', 'Work', false, 1),
-    new Action('today3', '2020-08-19', 'Free', false, 1),
+    new Action('today3', '2020-08-22', 'Free', false, 1),
     new Action('week3', '2020-08-23', 'Family', true, 1),
     new Action('another year', '2021-07-20', 'Work', false, 2),
   ];
