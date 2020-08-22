@@ -218,7 +218,7 @@ export class ActionsPage implements OnInit {
         action.catPos
       )
     );
-    const sleep = window.setTimeout(() => {this.dayRefresh(); this.actionsDisabled = false; }, 400);
+    const sleep = window.setTimeout(() => {this.dayRefresh(); this.actionsDisabled = false; }, 500);
     this.actionsDisabled = true;
   }
 }

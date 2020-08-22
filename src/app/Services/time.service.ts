@@ -157,8 +157,21 @@ export class TimeService {
 
   // turn string date into the date that should be displayed
   dateToDisplay(date: string) {
+    const today = this.getDate();
+    const yesterday = this.minusFromDate(today, 1);
+    const tomorow = this.addToDate(today, 1);
+
     const jvDate: Date = new Date(date);
     const week = this.getWeekRange();
+    if (date === yesterday) {
+      return 'Yesterday';
+    }
+    if (date === today) {
+      return 'Today';
+    }
+    if (date === tomorow) {
+      return 'Tomorow';
+    }
     if (week.includes(date)) {
       return (jvDate.toLocaleDateString(undefined, { weekday: 'long' }));
     } else {
