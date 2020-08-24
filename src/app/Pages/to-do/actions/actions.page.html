@@ -61,7 +61,7 @@
         <ion-item-sliding>
           <ion-item [disabled]='actionsDisabled' lines='full' class="action">
             <ion-label>
-              <h6>{{action.name}}</h6>
+              <h6>hello {{action.name}}</h6>
               <p>Catagory - {{action.catagory}}</p>
               <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>
             </ion-label>
@@ -101,7 +101,7 @@
           <div *ngFor="let action of getCatActions(cat)">
 
             <ion-reorder *ngIf="checkRe(cat); else notReorder">
-              <ion-item >
+              <ion-item>
                 <ion-label>
                   <h6>{{action.name}}</h6>
                   <p>Deadline - {{this.dateToDisplay(action.deadline)}}</p>

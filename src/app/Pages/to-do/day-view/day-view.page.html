@@ -2,6 +2,8 @@
   <ion-title>Day Schedule</ion-title>
 </ion-toolbar>
 
+<ion-button [routerLink]='["/test-page"]'>Go to test</ion-button>
+
 <ion-content>
   <ion-list>
     <div *ngFor='let item of day'>
@@ -21,6 +23,7 @@
   </ion-list>
 
 
+
   <!--This creates a square so that the button does not cover important infomation-->
   <div style="height: 80px"></div>
   <!--Button to add a new action-->
@@ -29,4 +32,5 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </ion-content>

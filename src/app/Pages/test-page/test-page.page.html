@@ -6,8 +6,80 @@
 
 <ion-content>
 
-  <ion-reorder-group>
-    
-  </ion-reorder-group>
+  <div
+      id="resize"
+      class="rectangle"
+      mwlResizable
+      [enableGhostResize]="true"
+      (resizeEnd)="onResizeEnd($event)"
+      (resizing)='onResizeEnd($event)'
+    >
+    Angular Resizable Element
+    <div
+      class="resize-handle-top"
+      mwlResizeHandle
+      [resizeEdges]="{ top: true }"
+    ></div>
+    <div
+      class="resize-handle-left"
+      mwlResizeHandle
+      [resizeEdges]="{ left: true }"
+    ></div>
+    <div
+      class="resize-handle-right"
+      mwlResizeHandle
+      [resizeEdges]="{ right: true }"
+    ></div>
+    <div
+      class="resize-handle-bottom"
+      mwlResizeHandle
+      [resizeEdges]="{ bottom: true }"
+    ></div>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <h2>To do</h2>
+
+
+
+    <div
+      cdkDropList
+      #activList="cdkDropList"
+      [cdkDropListData]="activities"
+      [cdkDropListConnectedTo]="[]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of activities" cdkDrag>
+        {{ item }}
+        <button class="btn move" cdkDragHandle>
+          drag
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="add"
+      [cdkDropListConnectedTo]="[activList]"
+      class="add-list"
+      (cdkDropListDropped)="drop($event)">
+      <div id='addButton' (click)="actionClicked()" (cdkDragStarted)='draging()' (cdkDragDropped)="replenish()" class="addButon" *ngFor="let item of add" cdkDrag>
+        <span >{{ item }}</span>
+      </div>
+    </div>
+  </div>
+
+
+  
 
 </ion-content>

@@ -33,7 +33,20 @@ ion-list-header{
     }
 }
 
-
 .action {
     opacity: 10 !important;
+}
+
+ion-item {
+    h6{
+        margin: 0px;
+        padding: 0px;
+        padding-bottom: 5px;
+        font-size: small;
+    }
+    p{
+        margin: 0px;
+        padding: 0px;
+        font-size: small;
+    }
 }

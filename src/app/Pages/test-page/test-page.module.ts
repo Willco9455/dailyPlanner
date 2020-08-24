@@ -8,12 +8,18 @@ import { TESTPAGEPageRoutingModule } from './test-page-routing.module';
 
 import { TESTPAGEPage } from './test-page.page';
 
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ResizableModule } from 'angular-resizable-element';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TESTPAGEPageRoutingModule
+    TESTPAGEPageRoutingModule,
+    DragDropModule,
+    ResizableModule
   ],
   declarations: [TESTPAGEPage]
 })
