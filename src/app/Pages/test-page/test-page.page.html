@@ -6,59 +6,34 @@
 
 <ion-content>
 
-  <!-- <div
-      id="resize"
-      class="rectangle"
-      mwlResizable
-      [enableGhostResize]="true"
-      (resizeEnd)="onResizeEnd($event)"
-      (resizing)='onResizeEnd($event)'
-    >
-    Angular Resizable Element
-    <div
-      class="resize-handle-top"
-      mwlResizeHandle
-      [resizeEdges]="{ top: true }"
-    ></div>
-    <div
-      class="resize-handle-left"
-      mwlResizeHandle
-      [resizeEdges]="{ left: true }"
-    ></div>
-    <div
-      class="resize-handle-right"
-      mwlResizeHandle
-      [resizeEdges]="{ right: true }"
-    ></div>
-    <div
-      class="resize-handle-bottom"
-      mwlResizeHandle
-      [resizeEdges]="{ bottom: true }"
-    ></div>
-  </div> -->
+  <div *ngFor="let item of dayList">
 
-  <div
+    <div class='top-padding' [ngStyle]="item.aboveStyle"></div>
+
+    <div
     id="testing1"
     class="testing1"
     mwlResizable
-    [enableGhostResize]="true"
-    (resizeEnd)="onResizeEnd($event)"
-    (resizing)='onResizeEnd($event)'
-    [resizeEdges]="{ top: true, bottom: true }"
-  >
-    <div
+    (resizeStart)="resizeStart($event)"
+    (resizeEnd)="onResize($event, item)"
+    (resizing)='onResize($event, item)'
+    [ngStyle]="item.activStyle"
+    >
+      <h1>{{ item.name }}</h1>
+      <div
       class="resize-handle-bottom"
       mwlResizeHandle
       [resizeEdges]="{ bottom: true }"
-    >
-      <div class="mini"></div>
+      ></div>
+  
+  
+      <div
+      class="resize-handle-top"
+      mwlResizeHandle
+      [resizeEdges]="{ top: true }"
+      ></div>
     </div>
-
   </div>
-
-
-
-
 
 
 
@@ -92,7 +67,7 @@
       [cdkDropListConnectedTo]="[activList]"
       class="add-list"
       (cdkDropListDropped)="drop($event)">
-      <div id='addButton' (click)="actionClicked()" (cdkDragStarted)='draging()' (cdkDragDropped)="replenish()" class="addButon" *ngFor="let item of add" cdkDrag>
+      <div id='addButton' (click)="actionClicked()" (cdkDragDropped)="replenish()" class="addButon" *ngFor="let item of add" cdkDrag>
         <span >{{ item }}</span>
       </div>
     </div>
