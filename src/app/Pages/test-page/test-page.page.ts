@@ -13,8 +13,8 @@ class DayItem {
   activStyle = {height: '40px', heightInt: 40};
 
   constructor(id: number, name: string) {
-      this.id = id;
-      this.name = name;
+    this.id = id;
+    this.name = name;
   }
 
   setAbove(height: number) {
@@ -35,18 +35,18 @@ class DayItem {
 })
 export class TESTPAGEPage implements OnInit {
 
-  activities = ['Do Homework', 'write personal statment', 'do some more stuff',
-  'write personal statment', 'do some more stuff', 'write personal statment'];
 
-  add = ['Add Action'];
+  activities: string [] = ['Do Homework', 'write personal statment', 'do some more stuff',
+  'write personal statment', 'do some more stuff', 'write personal statment'];
+  add: string [] = ['Add Action'];
 
   dayList: DayItem [] = [
     new DayItem( 1 , 'Action1'),
     new DayItem( 2 , 'Action2'),
     new DayItem( 3 , 'Action3'),
   ];
+  beforeDrag: DayItem;
 
-  resizingElement: {top: number, height: number};
 
   constructor(public toastController: ToastController) { }
 
@@ -84,44 +84,55 @@ export class TESTPAGEPage implements OnInit {
   }
 
 
-  resizeStart(event: ResizeEvent) {
-    console.log(event);
-    this.resizingElement = {
-      top: event.rectangle.top,
-      height: event.rectangle.height,
-    };
+  resizeStart(item: DayItem) {
+    this.beforeDrag = item;
   }
 
 
 
   onResize(event: ResizeEvent, item: DayItem): void {
-    console.log('ran');
+    const // these are the declarations for this function;
+      heightLim = 100, // change this to change the minimum height of the action
+      gapHeight = 20,
+      index = this.dayList.findIndex(x => x === item),
+      itemRef = this.dayList[index],
+      newHeight = event.rectangle.height,
+      oldHeight = itemRef.activStyle.heightInt,
+      constHeight = this.beforeDrag.aboveStyle.heightInt + this.beforeDrag.activStyle.heightInt,
+      aboveHeight = itemRef.aboveStyle.heightInt
+    ;
 
-    const index = this.dayList.findIndex( x => x === item);
-    if (
-        this.dayList[index].activStyle.heightInt <= 40 &&
-        (this.resizingElement.height - event.rectangle.height) > 0
-      ) {
-      this.dayList[index].setHeight(40);
-      return;
+    // Runs when dragging from the bottom hanndle
+    if (event.edges.bottom !== undefined && newHeight >= heightLim) { // BOTTOM drag
+      console.log('dragging from bottom');
+
+      itemRef.setHeight(newHeight);
+
+    } else if (event.edges.bottom !== undefined && newHeight <= heightLim) {
+      itemRef.setHeight(heightLim);
     }
 
-    if (event.rectangle.top !== this.resizingElement.top) {
+    if (event.edges.bottom === undefined) { // TOP drag
+      console.log('dragging from top');
+      console.log(constHeight);
 
-      if (this.dayList[index].aboveStyle.heightInt <= 10 && (this.resizingElement.height - event.rectangle.height) < 0) {
-        console.log('cant move past this point');
-        this.dayList[index].setAbove(10);
-        return;
+      if (newHeight >= heightLim && (aboveHeight > 10 || newHeight < oldHeight)) {
+        console.log('shrinking');
+        itemRef.setHeight(newHeight);
+        itemRef.setAbove(constHeight - newHeight);
+      } else if ( newHeight <= heightLim ) {
+        itemRef.setHeight(heightLim);
+        itemRef.setAbove(constHeight - heightLim);
+      } else if ( aboveHeight <= 10 ) {
+        itemRef.setAbove(10);
+        itemRef.setHeight(constHeight - 10 );
       }
-      this.dayList[index].activStyle.height = `${event.rectangle.height}px`;
-      // tslint:disable-next-line: max-line-length
-      this.dayList[index].aboveStyle.heightInt = (this.resizingElement.height - event.rectangle.height) + this.dayList[index].aboveStyle.heightInt;
-      this.dayList[index].aboveStyle.height = `${this.dayList[index].aboveStyle.heightInt}px`;
-      this.resizingElement = {top: event.rectangle.top, height: event.rectangle.height};
-      return;
     }
+  }
 
-    this.dayList[index].setHeight(event.rectangle.height);
+  resizeEnd(event: ResizeEvent) {
+    console.log('end');
+
   }
 
 

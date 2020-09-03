@@ -14,10 +14,11 @@
     id="testing1"
     class="testing1"
     mwlResizable
-    (resizeStart)="resizeStart($event)"
-    (resizeEnd)="onResize($event, item)"
+    (resizeStart)="resizeStart(item)"
     (resizing)='onResize($event, item)'
+    (resizeEnd)="resizeEnd($event)"
     [ngStyle]="item.activStyle"
+    [resizeSnapGrid] = "{top: 1, bottom: 1}"
     >
       <h1>{{ item.name }}</h1>
       <div
