@@ -1,4 +1,40 @@
-
+.top-padding {
+    width: 100%;
+    height: 50px;
+  }
+  .dayItem {
+    display: flex;
+    position: relative;
+    width: 95%;
+    height: 100px;
+    // min-height: 40px;
+    background-color: orange;
+    border: 1px solid black;
+    border-radius: 30px;
+    margin: auto;
+    h1 {
+      display: block;
+      margin: auto;
+    }
+  }
+  .resize-handle-bottom {
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    width: 10%; 
+    margin: 0% 45% 0% 45%;
+    background-color: black;
+    cursor: row-resize;
+  }
+  .resize-handle-top {
+    position: absolute;
+    top: 0;
+    height: 5px;
+    width: 10%; 
+    margin: 0% 45% 0% 45%;
+    background-color: black;
+    cursor: row-resize;
+  }
 
 
 

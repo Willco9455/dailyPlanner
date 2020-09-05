@@ -8,6 +8,7 @@ import { AddModalPage } from '../../add-modal/add-modal.page';
 import { DayItem } from '../item.model';
 
 
+
 @Component({
   selector: 'app-day-view',
   templateUrl: './day-view.page.html',
@@ -15,13 +16,7 @@ import { DayItem } from '../item.model';
 })
 export class DayViewPage implements OnInit {
 
-  day: any;
-  adding: boolean;
-  name = '';
-  startTime: string;
-  endTime: string;
-  addDisabled = true;
-  endTimeInpDis = true;
+  dayList: DayItem [];
 
   constructor(
     private dayService: DayService,
@@ -29,19 +24,11 @@ export class DayViewPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.dayList = this.dayService.getDayList();
   }
 
   ionViewWillEnter() {
 
-    // fetches the list activities for today
-    this.reloadDay();
-
-    // sets adding variable to false by default
-    this.adding = false;
-  }
-
-  reloadDay() {
-    this.day = this.dayService.getDay();
   }
 
 
@@ -54,25 +41,5 @@ export class DayViewPage implements OnInit {
     }
   }
 
-  // this is the code for connecting to the adding modal
-  async showModal() {
-    const modal = await this.modalCtrl.create({
-      component: AddModalPage,
-      cssClass: 'add-modal-class',
-      swipeToClose: true,
-      backdropDismiss: true
-    });
-
-    modal.onDidDismiss().then((dataReturnded) => {
-      this.reloadDay();
-    });
-
-    return await modal.present();
-  }
-
-  rmItem(item: DayItem) {
-    this.dayService.removeItem(item);
-    this.reloadDay();
-  }
 
 }

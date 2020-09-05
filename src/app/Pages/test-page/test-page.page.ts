@@ -116,8 +116,8 @@ export class TESTPAGEPage implements OnInit {
         } else {
           const belowRef = this.dayList[index + 1];
           const belowConstHeight = this.beforeDrag.activStyle.heightInt + this.beforeDragBelow.aboveStyle.heightInt;
-          const newBelowHeight = constHeight - newHeight;
-          if (newBelowHeight <= 10) {
+          const newBelowHeight = belowConstHeight - newHeight;
+          if (newBelowHeight < 10) {
             belowRef.setAbove(10);
             itemRef.setHeight(belowConstHeight - 10);
             return;

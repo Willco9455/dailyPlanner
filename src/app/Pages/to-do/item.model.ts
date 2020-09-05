@@ -1,12 +1,21 @@
 export class DayItem {
+    id: number;
     name: string;
-    startTime: string; // in format HH:MM;
-    endTime: string; // in format HH:MM;
+    aboveStyle = {height: '50px', heightInt: 50};
+    activStyle = {height: '60px', heightInt: 60};
 
-    constructor(name: string, startTime: string, endTime: string) {
-        this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    constructor(id: number, name: string) {
+      this.id = id;
+      this.name = name;
+    }
+
+    setAbove(height: number) {
+      this.aboveStyle.heightInt = height;
+      this.aboveStyle.height = height.toString() + 'px';
+    }
+    setHeight(height: number) {
+      this.activStyle.heightInt = height;
+      this.activStyle.height = height.toString() + 'px';
     }
 }
 
