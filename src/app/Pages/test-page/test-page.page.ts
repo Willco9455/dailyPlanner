@@ -10,7 +10,7 @@ class DayItem {
   id: number;
   name: string;
   aboveStyle = {height: '50px', heightInt: 50};
-  activStyle = {height: '40px', heightInt: 40};
+  activStyle = {height: '60px', heightInt: 60};
 
   constructor(id: number, name: string) {
     this.id = id;
@@ -46,6 +46,7 @@ export class TESTPAGEPage implements OnInit {
     new DayItem( 3 , 'Action3'),
   ];
   beforeDrag: DayItem;
+  beforeDragBelow: DayItem;
 
 
   constructor(public toastController: ToastController) { }
@@ -85,15 +86,16 @@ export class TESTPAGEPage implements OnInit {
 
 
   resizeStart(item: DayItem) {
+    const index = this.dayList.findIndex(x => x === item);
     this.beforeDrag = item;
+    this.beforeDragBelow = this.dayList[index + 1];
   }
 
 
-
+  // runs while a item is bieng resized
   onResize(event: ResizeEvent, item: DayItem): void {
     const // these are the declarations for this function;
-      heightLim = 100, // change this to change the minimum height of the action
-      gapHeight = 20,
+      heightLim = 60, // change this to change the minimum height of the action
       index = this.dayList.findIndex(x => x === item),
       itemRef = this.dayList[index],
       newHeight = event.rectangle.height,
@@ -103,15 +105,55 @@ export class TESTPAGEPage implements OnInit {
     ;
 
     // Runs when dragging from the bottom hanndle
-    if (event.edges.bottom !== undefined && newHeight >= heightLim) { // BOTTOM drag
+    if (event.edges.bottom !== undefined ) { // BOTTOM drag
       console.log('dragging from bottom');
+      // when the dragable element is bieng expanded
+      if (newHeight > oldHeight) {
+        console.log('expanding');
 
-      itemRef.setHeight(newHeight);
+        if (index + 1 === this.dayList.length) {
+          itemRef.setHeight(newHeight);
+        } else {
+          const belowRef = this.dayList[index + 1];
+          const belowConstHeight = this.beforeDrag.activStyle.heightInt + this.beforeDragBelow.aboveStyle.heightInt;
+          const newBelowHeight = constHeight - newHeight;
+          if (newBelowHeight <= 10) {
+            belowRef.setAbove(10);
+            itemRef.setHeight(belowConstHeight - 10);
+            return;
+          }
+          if (belowRef.aboveStyle.heightInt > 10) {
+            itemRef.setHeight(newHeight);
+            belowRef.setAbove(belowConstHeight - newHeight);
+          }
+        }
+      } else { // when the dragable element is shrinking
+        console.log('shrinking');
 
-    } else if (event.edges.bottom !== undefined && newHeight <= heightLim) {
-      itemRef.setHeight(heightLim);
+        if (index + 1 === this.dayList.length) { // runs when draging the last element in the list
+          if (newHeight <= heightLim) {
+            itemRef.setHeight(heightLim);
+          } else {
+            itemRef.setHeight(newHeight);
+          }
+        } else { // runs when dragging any other element in the list
+          const belowRef = this.dayList[index + 1];
+          const belowConstHeight = this.beforeDrag.activStyle.heightInt + this.beforeDragBelow.aboveStyle.heightInt;
+
+          if (newHeight <= heightLim) { // runs when tring to shrink the element below the height limit
+            itemRef.setHeight(heightLim);
+            belowRef.setAbove(belowConstHeight - heightLim);
+          } else { // runs for any other time an item is bieng shrunk
+            itemRef.setHeight(newHeight);
+            belowRef.setAbove(belowConstHeight - newHeight);
+          }
+        }
+      }
+
+
     }
 
+    // Runs when dragging from the top handle
     if (event.edges.bottom === undefined) { // TOP drag
       console.log('dragging from top');
       console.log(constHeight);
