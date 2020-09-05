@@ -17,7 +17,7 @@ export class DayService {
   ];
 
   getDayList() {
-    return [...this.dayList]
+    return [...this.dayList];
   }
 
 

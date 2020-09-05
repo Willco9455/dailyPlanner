@@ -4,7 +4,6 @@ import { NavController } from '@ionic/angular';
 import { DayService } from 'src/app/Services/day.service';
 
 import { ModalController } from '@ionic/angular';
-import { AddModalPage } from '../../add-modal/add-modal.page';
 import { DayItem } from '../item.model';
 
 
