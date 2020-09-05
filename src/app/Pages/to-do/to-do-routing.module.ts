@@ -23,10 +23,6 @@ const routes: Routes = [
     redirectTo: '/to-do/tabs/day-view',
     pathMatch: 'full'
   },
-  {
-    path: 'add-modal',
-    loadChildren: () => import('../add-modal/add-modal.module').then( m => m.AddModalPageModule)
-  },
 ];
 
 @NgModule({

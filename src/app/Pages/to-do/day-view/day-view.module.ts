@@ -8,7 +8,7 @@ import { DayViewPageRoutingModule } from './day-view-routing.module';
 
 import { DayViewPage } from './day-view.page';
 import { AddActivPageModule } from 'src/app/Pages/add-activ/add-activ.module';
-import { AddModalPageModule } from '../../add-modal/add-modal.module';
+
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { AddModalPageModule } from '../../add-modal/add-modal.module';
     IonicModule,
     DayViewPageRoutingModule,
     AddActivPageModule,
-    AddModalPageModule
+
   ],
   declarations: [DayViewPage]
 })
