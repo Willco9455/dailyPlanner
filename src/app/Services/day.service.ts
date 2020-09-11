@@ -46,6 +46,40 @@ export class DayService {
     console.log('ran');
   }
 
+  setTimings() {
+    let currentTime = '00:00';
+    for (const i of this.dayList) {
+      currentTime = addToTime(i.aboveStyle.heightInt, currentTime);
+      i.setStart(currentTime);
+      currentTime = addToTime(i.activStyle.heightInt, currentTime);
+      i.setEnd(currentTime);
+    }
+
+    console.log(addToTime(500, '14:20'));
+
+    function addToTime(minuets: number, too: string) {
+      let tooSplit = too.split(':');
+      while (minuets !==  0) {
+        if (tooSplit[1] !== '59') {
+          tooSplit[1] = (parseInt(tooSplit[1], 10) + 1).toString();
+        } else if (tooSplit[0] === '23') {
+          tooSplit = ['00', '00'];
+        } else {
+          tooSplit = [(parseInt(tooSplit[0], 10) + 1).toString(), '00'];
+        }
+        minuets -= 1;
+      }
+      // adds 0 in front of any times with single digigt numbers
+      for (const i of tooSplit) {
+        const index = tooSplit.indexOf(i);
+        if (i.length === 1) {
+          tooSplit[index] = '0' + i;
+        }
+      }
+      return(tooSplit[0] + ':' + tooSplit[1]);
+    }
+  }
+
 
 
 }

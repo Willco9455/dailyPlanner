@@ -1,8 +1,12 @@
+
+
 export class DayItem {
     id: number;
     name: string;
     aboveStyle = {height: '50px', heightInt: 50};
     activStyle = {height: '60px', heightInt: 60};
+    startTime: string;
+    endTime: string;
 
     constructor(id: number, name: string) {
       this.id = id;
@@ -16,6 +20,20 @@ export class DayItem {
     setHeight(height: number) {
       this.activStyle.heightInt = height;
       this.activStyle.height = height.toString() + 'px';
+    }
+
+    setStart(x: string) {
+        this.startTime = x;
+    }
+    getStart() {
+        return this.startTime;
+    }
+
+    setEnd(x: string) {
+        this.endTime = x;
+    }
+    getEnd() {
+        return this.endTime;
     }
 }
 

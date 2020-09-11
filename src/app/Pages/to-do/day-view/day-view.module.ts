@@ -8,6 +8,7 @@ import { DayViewPageRoutingModule } from './day-view-routing.module';
 
 import { DayViewPage } from './day-view.page';
 import { AddActivPageModule } from 'src/app/Pages/add-activ/add-activ.module';
+import { ResizableModule } from 'angular-resizable-element';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { AddActivPageModule } from 'src/app/Pages/add-activ/add-activ.module';
     IonicModule,
     DayViewPageRoutingModule,
     AddActivPageModule,
-
+    ResizableModule
   ],
   declarations: [DayViewPage]
 })

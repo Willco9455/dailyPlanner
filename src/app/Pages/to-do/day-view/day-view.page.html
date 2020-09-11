@@ -1,37 +1,67 @@
 <ion-toolbar color='primary'>
   <ion-title>Day Schedule</ion-title>
+  <ion-buttons slot="end">
+    <ion-button  (click)="edit()">CLICK</ion-button>
+  </ion-buttons>
 </ion-toolbar>
 
-<ion-button [routerLink]='["/test-page"]'>Go to test</ion-button>
+<!-- <ion-button [routerLink]='["/test-page"]'>Go to test</ion-button> -->
 
 <ion-content>
-
-  <div>
-
+  <div [ngStyle]='background' class="background">
+    <h6>00:00</h6>
   </div>
 
-  <ion-item-sliding *ngFor="let item of dayList">
-    <ion-item>
-      <ion-label>
-        <h3>{{item.name}}</h3>
-      </ion-label>
-    </ion-item>
-
-    <ion-item-options>
-      <ion-item-option color="danger">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
+  <div *ngIf="edditing === false">
+  <div  *ngFor="let item of dayList">
+    <div class="top-padding" [ngStyle]="item.aboveStyle"></div>
+    <div class='day-item' [ngStyle]="item.activStyle">
+      <h1>{{ item.name }}</h1>
+      <span id="start"><p>Start: {{ item.startTime }}</p></span>
+      <span id="end"><p>End: {{ item.endTime }}</p></span>
+    </div>
+  </div>
+  </div>
   
+  <div *ngIf="edditing === true">
+  <div  *ngFor="let item of dayList">
 
+    <div class="top-padding" [ngStyle]="item.aboveStyle"></div>
+
+    <div 
+      class='day-item' 
+      [ngStyle]="item.activStyle"
+      [resizeSnapGrid]="{top: 10, bottom: 10}"
+      mwlResizable
+      (resizeStart)="resizeStart(item)"
+      (resizing)='onResize($event, item)'
+      (resizeEnd)='resizeEnd()'
+    >
+    <div
+      class="resize-handle-bottom"
+      mwlResizeHandle
+      [resizeEdges]="{ bottom: true }"
+      ></div>
+  
+      <div
+      class="resize-handle-top"
+      mwlResizeHandle
+      [resizeEdges]="{ top: true }"
+      ></div>
+
+      <h1>{{ item.name }}</h1>
+      <p>Start: {{ item.startTime }}</p>
+      <p>End: {{ item.endTime }}</p>
+    </div>
+  </div>
+  </div>
 
   <!--This creates a square so that the button does not cover important infomation-->
   <div style="height: 80px"></div>
   <!--Button to add a new action-->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name='add'></ion-icon>
     </ion-fab-button>
   </ion-fab>
 

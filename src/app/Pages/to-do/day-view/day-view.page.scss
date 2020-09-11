@@ -1,40 +1,54 @@
+.background {
+    background-color: whitesmoke;
+    width: 100%;
+    height: 1000%;
+    position: absolute;
+    z-index: 0;
+}
+
+
 .top-padding {
     width: 100%;
     height: 50px;
-  }
-  .dayItem {
+    background-color: transparent;
+}
+
+.day-item {
     display: flex;
     position: relative;
     width: 95%;
     height: 100px;
-    // min-height: 40px;
     background-color: orange;
     border: 1px solid black;
-    border-radius: 30px;
+    border-radius: 15px;
     margin: auto;
     h1 {
-      display: block;
-      margin: auto;
+        top: 0;
+        left: 0;
     }
-  }
-  .resize-handle-bottom {
+    #start {
+        display: block;
+        bottom: 0;
+    }
+}
+.resize-handle-bottom {
     position: absolute;
     bottom: 0;
-    height: 5px;
-    width: 10%; 
+    height: 10px;
+    width: 15%; 
     margin: 0% 45% 0% 45%;
     background-color: black;
     cursor: row-resize;
-  }
-  .resize-handle-top {
+}
+.resize-handle-top {
     position: absolute;
     top: 0;
-    height: 5px;
-    width: 10%; 
+    height: 10px;
+    width: 15%;  
     margin: 0% 45% 0% 45%;
     background-color: black;
     cursor: row-resize;
-  }
+}
 
 
 
